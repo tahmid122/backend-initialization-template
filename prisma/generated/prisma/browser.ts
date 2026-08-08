@@ -17,4 +17,13 @@ import * as Prisma from './internal/prismaNamespaceBrowser'
 export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
-
+/**
+ * Model OTP
+ * 
+ */
+export type OTP = Prisma.OTPModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

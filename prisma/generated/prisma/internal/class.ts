@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.9.1",
   "engineVersion": "e922089b7d7502aff4249d5da3420f6fa55fc6ad",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n",
+  "inlineSchema": "enum OtpPurpose {\n  REGISTER\n  FORGOT_PASSWORD\n}\n\nmodel OTP {\n  id        String     @id @default(uuid())\n  email     String\n  otp       String\n  purpose   OtpPurpose\n  expiresAt DateTime\n  isUsed    Boolean    @default(false)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([email])\n}\n\n// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum UserRole {\n  USER\n  ADMIN\n}\n\nmodel User {\n  id         String   @id @default(uuid())\n  name       String\n  email      String   @unique\n  password   String\n  isVerified Boolean  @default(false)\n  role       UserRole @default(USER)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([id])\n  @@index([email])\n  @@map(\"users\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -32,10 +32,10 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"OTP\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"otp\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"purpose\",\"kind\":\"enum\",\"type\":\"OtpPurpose\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isUsed\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"UserRole\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"users\"}},\"enums\":{},\"types\":{}}")
 config.parameterizationSchema = {
-  strings: JSON.parse("[]"),
-  graph: "AAAA"
+  strings: JSON.parse("[\"where\",\"OTP.findUnique\",\"OTP.findUniqueOrThrow\",\"orderBy\",\"cursor\",\"OTP.findFirst\",\"OTP.findFirstOrThrow\",\"OTP.findMany\",\"data\",\"OTP.createOne\",\"OTP.createMany\",\"OTP.createManyAndReturn\",\"OTP.updateOne\",\"OTP.updateMany\",\"OTP.updateManyAndReturn\",\"create\",\"update\",\"OTP.upsertOne\",\"OTP.deleteOne\",\"OTP.deleteMany\",\"having\",\"_count\",\"_min\",\"_max\",\"OTP.groupBy\",\"OTP.aggregate\",\"User.findUnique\",\"User.findUniqueOrThrow\",\"User.findFirst\",\"User.findFirstOrThrow\",\"User.findMany\",\"User.createOne\",\"User.createMany\",\"User.createManyAndReturn\",\"User.updateOne\",\"User.updateMany\",\"User.updateManyAndReturn\",\"User.upsertOne\",\"User.deleteOne\",\"User.deleteMany\",\"User.groupBy\",\"User.aggregate\",\"AND\",\"OR\",\"NOT\",\"id\",\"name\",\"email\",\"password\",\"isVerified\",\"UserRole\",\"role\",\"createdAt\",\"updatedAt\",\"equals\",\"in\",\"notIn\",\"lt\",\"lte\",\"gt\",\"gte\",\"not\",\"contains\",\"startsWith\",\"endsWith\",\"otp\",\"OtpPurpose\",\"purpose\",\"expiresAt\",\"isUsed\",\"set\"]"),
+  graph: "VhEgCyoAAEoAMCsAAAQAECwAAEoAMC0BAAAAAS8BAEIAITRAAEUAITVAAEUAIUEBAEIAIUMAAEtDIkRAAEUAIUUgAEMAIQEAAAABACABAAAAAQAgCyoAAEoAMCsAAAQAECwAAEoAMC0BAEIAIS8BAEIAITRAAEUAITVAAEUAIUEBAEIAIUMAAEtDIkRAAEUAIUUgAEMAIQADAAAABAAgAwAABQAwBAAAAQAgAwAAAAQAIAMAAAUAMAQAAAEAIAMAAAAEACADAAAFADAEAAABACAILQEAAAABLwEAAAABNEAAAAABNUAAAAABQQEAAAABQwAAAEMCREAAAAABRSAAAAABAQgAAAkAIAgtAQAAAAEvAQAAAAE0QAAAAAE1QAAAAAFBAQAAAAFDAAAAQwJEQAAAAAFFIAAAAAEBCAAACwAwAQgAAAsAMAgtAQBPACEvAQBPACE0QABSACE1QABSACFBAQBPACFDAABWQyJEQABSACFFIABQACECAAAAAQAgCAAADgAgCC0BAE8AIS8BAE8AITRAAFIAITVAAFIAIUEBAE8AIUMAAFZDIkRAAFIAIUUgAFAAIQIAAAAEACAIAAAQACACAAAABAAgCAAAEAAgAwAAAAEAIA8AAAkAIBAAAA4AIAEAAAABACABAAAABAAgAxUAAFMAIBYAAFUAIBcAAFQAIAsqAABGADArAAAXABAsAABGADAtAQA0ACEvAQA0ACE0QAA3ACE1QAA3ACFBAQA0ACFDAABHQyJEQAA3ACFFIAA1ACEDAAAABAAgAwAAFgAwFAAAFwAgAwAAAAQAIAMAAAUAMAQAAAEAIAsqAABBADArAAAdABAsAABBADAtAQAAAAEuAQBCACEvAQAAAAEwAQBCACExIABDACEzAABEMyI0QABFACE1QABFACEBAAAAGgAgAQAAABoAIAsqAABBADArAAAdABAsAABBADAtAQBCACEuAQBCACEvAQBCACEwAQBCACExIABDACEzAABEMyI0QABFACE1QABFACEAAwAAAB0AIAMAAB4AMAQAABoAIAMAAAAdACADAAAeADAEAAAaACADAAAAHQAgAwAAHgAwBAAAGgAgCC0BAAAAAS4BAAAAAS8BAAAAATABAAAAATEgAAAAATMAAAAzAjRAAAAAATVAAAAAAQEIAAAiACAILQEAAAABLgEAAAABLwEAAAABMAEAAAABMSAAAAABMwAAADMCNEAAAAABNUAAAAABAQgAACQAMAEIAAAkADAILQEATwAhLgEATwAhLwEATwAhMAEATwAhMSAAUAAhMwAAUTMiNEAAUgAhNUAAUgAhAgAAABoAIAgAACcAIAgtAQBPACEuAQBPACEvAQBPACEwAQBPACExIABQACEzAABRMyI0QABSACE1QABSACECAAAAHQAgCAAAKQAgAgAAAB0AIAgAACkAIAMAAAAaACAPAAAiACAQAAAnACABAAAAGgAgAQAAAB0AIAMVAABMACAWAABOACAXAABNACALKgAAMwAwKwAAMAAQLAAAMwAwLQEANAAhLgEANAAhLwEANAAhMAEANAAhMSAANQAhMwAANjMiNEAANwAhNUAANwAhAwAAAB0AIAMAAC8AMBQAADAAIAMAAAAdACADAAAeADAEAAAaACALKgAAMwAwKwAAMAAQLAAAMwAwLQEANAAhLgEANAAhLwEANAAhMAEANAAhMSAANQAhMwAANjMiNEAANwAhNUAANwAhDhUAADkAIBYAAEAAIBcAAEAAIDYBAAAAATcBAAAABDgBAAAABDkBAAAAAToBAAAAATsBAAAAATwBAAAAAT0BAD8AIT4BAAAAAT8BAAAAAUABAAAAAQUVAAA5ACAWAAA-ACAXAAA-ACA2IAAAAAE9IAA9ACEHFQAAOQAgFgAAPAAgFwAAPAAgNgAAADMCNwAAADMIOAAAADMIPQAAOzMiCxUAADkAIBYAADoAIBcAADoAIDZAAAAAATdAAAAABDhAAAAABDlAAAAAATpAAAAAATtAAAAAATxAAAAAAT1AADgAIQsVAAA5ACAWAAA6ACAXAAA6ACA2QAAAAAE3QAAAAAQ4QAAAAAQ5QAAAAAE6QAAAAAE7QAAAAAE8QAAAAAE9QAA4ACEINgIAAAABNwIAAAAEOAIAAAAEOQIAAAABOgIAAAABOwIAAAABPAIAAAABPQIAOQAhCDZAAAAAATdAAAAABDhAAAAABDlAAAAAATpAAAAAATtAAAAAATxAAAAAAT1AADoAIQcVAAA5ACAWAAA8ACAXAAA8ACA2AAAAMwI3AAAAMwg4AAAAMwg9AAA7MyIENgAAADMCNwAAADMIOAAAADMIPQAAPDMiBRUAADkAIBYAAD4AIBcAAD4AIDYgAAAAAT0gAD0AIQI2IAAAAAE9IAA-ACEOFQAAOQAgFgAAQAAgFwAAQAAgNgEAAAABNwEAAAAEOAEAAAAEOQEAAAABOgEAAAABOwEAAAABPAEAAAABPQEAPwAhPgEAAAABPwEAAAABQAEAAAABCzYBAAAAATcBAAAABDgBAAAABDkBAAAAAToBAAAAATsBAAAAATwBAAAAAT0BAEAAIT4BAAAAAT8BAAAAAUABAAAAAQsqAABBADArAAAdABAsAABBADAtAQBCACEuAQBCACEvAQBCACEwAQBCACExIABDACEzAABEMyI0QABFACE1QABFACELNgEAAAABNwEAAAAEOAEAAAAEOQEAAAABOgEAAAABOwEAAAABPAEAAAABPQEAQAAhPgEAAAABPwEAAAABQAEAAAABAjYgAAAAAT0gAD4AIQQ2AAAAMwI3AAAAMwg4AAAAMwg9AAA8MyIINkAAAAABN0AAAAAEOEAAAAAEOUAAAAABOkAAAAABO0AAAAABPEAAAAABPUAAOgAhCyoAAEYAMCsAABcAECwAAEYAMC0BADQAIS8BADQAITRAADcAITVAADcAIUEBADQAIUMAAEdDIkRAADcAIUUgADUAIQcVAAA5ACAWAABJACAXAABJACA2AAAAQwI3AAAAQwg4AAAAQwg9AABIQyIHFQAAOQAgFgAASQAgFwAASQAgNgAAAEMCNwAAAEMIOAAAAEMIPQAASEMiBDYAAABDAjcAAABDCDgAAABDCD0AAElDIgsqAABKADArAAAEABAsAABKADAtAQBCACEvAQBCACE0QABFACE1QABFACFBAQBCACFDAABLQyJEQABFACFFIABDACEENgAAAEMCNwAAAEMIOAAAAEMIPQAASUMiAAAAAUYBAAAAAQFGIAAAAAEBRgAAADMCAUZAAAAAAQAAAAFGAAAAQwIAAAAAAxUABhYABxcACAAAAAMVAAYWAAcXAAgAAAADFQAOFgAPFwAQAAAAAxUADhYADxcAEAECAQIDAQUGAQYHAQcIAQkKAQoMAgsNAwwPAQ0RAg4SBBETARIUARMVAhgYBRkZCRobChscChwfCh0gCh4hCh8jCiAlAiEmCyIoCiMqAiQrDCUsCiYtCicuAigxDSkyEQ"
 }
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
@@ -70,8 +70,8 @@ export interface PrismaClientConstructor {
    * const prisma = new PrismaClient({
    *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
    * })
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more OTPS
+   * const oTPS = await prisma.oTP.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -94,8 +94,8 @@ export interface PrismaClientConstructor {
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more OTPS
+ * const oTPS = await prisma.oTP.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -188,7 +188,25 @@ export interface PrismaClient<
     extArgs: ExtArgs
   }>>
 
-    
+      /**
+   * `prisma.oTP`: Exposes CRUD operations for the **OTP** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OTPS
+    * const oTPS = await prisma.oTP.findMany()
+    * ```
+    */
+  get oTP(): Prisma.OTPDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

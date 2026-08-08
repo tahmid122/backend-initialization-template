@@ -6,6 +6,8 @@ const config = {
   DB_URL: process.env.DATABASE_URL,
   PORT: process.env.PORT || 4000,
   APP_URL: process.env.APP_URL,
+  SMTP_USER: process.env.SMTP_USER,
+  SMTP_PASS: process.env.SMTP_PASS,
 };
 
 export default config;
