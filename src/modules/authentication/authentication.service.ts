@@ -145,8 +145,13 @@ const resendVerificationEmail = async (data: { email: string }) => {
   return { message: "Rent the verification email." };
 };
 
+const login = async (data: { email: string; password: string }) => {
+  const { email, password } = data;
+};
+
 export const authenticationService = {
   register,
   verifyAccount,
   resendVerificationEmail,
+  login,
 };

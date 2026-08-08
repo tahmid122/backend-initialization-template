@@ -16,5 +16,7 @@ router.post(
   "/resend-verification-email",
   asyncHandler(authenticationController.resendVerificationEmail),
 );
+//login
+router.post("/login", asyncHandler(authenticationController.login));
 
 export const authenticationRoutes: Router = router;
