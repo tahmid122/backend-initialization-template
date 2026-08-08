@@ -8,7 +8,7 @@ async function main() {
     console.log(`Connected to database successfully.`);
 
     app.listen(config.PORT, () => {
-      console.log(`Server running at http://localhost:${config.PORT}`);
+      console.log(`Server running at http://localhost:${config.PORT}/api/v1`);
     });
   } catch (error) {
     console.error(error);
