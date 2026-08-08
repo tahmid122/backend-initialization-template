@@ -4,7 +4,17 @@ import { authenticationController } from "./authentication.controller";
 
 const router = Router();
 
-//register
+// REGISTRATION
 router.post("/register", asyncHandler(authenticationController.register));
+//verify-account
+router.post(
+  "/verify-account",
+  asyncHandler(authenticationController.verifyAccount),
+);
+//resend-verification-email
+router.post(
+  "/resend-verification-email",
+  asyncHandler(authenticationController.resendVerificationEmail),
+);
 
 export const authenticationRoutes: Router = router;

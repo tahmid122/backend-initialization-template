@@ -11,4 +11,20 @@ const register = async (req: Request, res: Response) => {
   });
 };
 
-export const authenticationController = { register };
+const verifyAccount = async (req: Request, res: Response) => {
+  await authenticationService.verifyAccount(req.body);
+
+  return res.status(200).send({ success: true, message: "Account verified." });
+};
+
+const resendVerificationEmail = async (req: Request, res: Response) => {
+  await authenticationService.resendVerificationEmail(req.body);
+  return res
+    .status(200)
+    .send({ success: true, message: "Resend verification email sent" });
+};
+export const authenticationController = {
+  register,
+  verifyAccount,
+  resendVerificationEmail,
+};
