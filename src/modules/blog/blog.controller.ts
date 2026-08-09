@@ -20,10 +20,15 @@ const getSingleBlog = async (req: Request, res: Response) => {
   const result = await blogService.getSingleBlog(req.params.blogId as string);
   res.status(200).send(result);
 };
+const deleteBlog = async (req: Request, res: Response) => {
+  const result = await blogService.deleteBlog(req.params.blogId as string);
+  res.status(200).send(result);
+};
 
 export const blogController = {
   createBlog,
   updateBlog,
   getAllBlogs,
   getSingleBlog,
+  deleteBlog,
 };

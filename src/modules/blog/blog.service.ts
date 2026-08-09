@@ -87,9 +87,17 @@ const getSingleBlog = async (id: string) => {
   return { success: true, message: "Blog details retrieved", data: blog };
 };
 
+const deleteBlog = async (id: string) => {
+  if (!id) throw new AppError("Id is required to delete blog");
+
+  const deletedBlog = await prisma.blog.delete({ where: { id } });
+  return { success: true, message: "Blog is deleted", data: deletedBlog };
+};
+
 export const blogService = {
   createBlog,
   updateBlog,
   getAllBlogs,
   getSingleBlog,
+  deleteBlog,
 };

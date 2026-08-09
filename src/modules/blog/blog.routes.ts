@@ -18,5 +18,7 @@ router.patch(
 router.get("/", asyncHandler(blogController.getAllBlogs));
 //get single blog
 router.get("/:blogId", asyncHandler(blogController.getSingleBlog));
+//delete a blog
+router.delete("/:blogId", asyncHandler(blogController.deleteBlog));
 
 export const blogRoutes = router;
