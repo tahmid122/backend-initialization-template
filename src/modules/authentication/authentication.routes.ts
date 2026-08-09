@@ -16,6 +16,9 @@ router.post(
   "/resend-verification-email",
   asyncHandler(authenticationController.resendVerificationEmail),
 );
+
+//LOGIN
+
 //login
 router.post("/login", asyncHandler(authenticationController.login));
 

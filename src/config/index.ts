@@ -8,6 +8,7 @@ const config = {
   APP_URL: process.env.APP_URL,
   SMTP_USER: process.env.SMTP_USER,
   SMTP_PASS: process.env.SMTP_PASS,
+  JWT_SECRET: process.env.JWT_SECRET,
 };
 
 export default config;

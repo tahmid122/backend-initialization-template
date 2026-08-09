@@ -25,8 +25,16 @@ const resendVerificationEmail = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-  await authenticationService.login(req.body);
+  const result = await authenticationService.login(req.body);
+  res.cookie("accessToken", result.data.token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 3600000 * 24,
+  });
+  res.status(200).send(result);
 };
+
 export const authenticationController = {
   register,
   verifyAccount,

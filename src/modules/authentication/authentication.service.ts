@@ -4,6 +4,8 @@ import AppError from "../../utils/AppError";
 import transporter from "../../utils/transporter";
 import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import config from "../../config";
 const register = async (data: Pick<User, "name" | "email" | "password">) => {
   const userAlready = await prisma.user.findFirst({
     where: { email: data.email },
@@ -147,6 +149,29 @@ const resendVerificationEmail = async (data: { email: string }) => {
 
 const login = async (data: { email: string; password: string }) => {
   const { email, password } = data;
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  if (!user) {
+    throw new AppError("Invalid credentials.", 400);
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw new AppError("Invalid credentials.", 400);
+  }
+  const token = jwt.sign(
+    { id: user.id, email: user.email, role: user.role },
+    config.JWT_SECRET as string,
+  );
+  const { password: userPassword, ...others } = user;
+
+  return {
+    success: true,
+    message: "Login successful.",
+    data: { user: others, token },
+  };
 };
 
 export const authenticationService = {
