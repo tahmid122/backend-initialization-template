@@ -35,9 +35,27 @@ const login = async (req: Request, res: Response) => {
   res.status(200).send(result);
 };
 
+const forgotPassword = async (req: Request, res: Response) => {
+  const result = await authenticationService.forgotPassword(req.body);
+  res.status(200).send(result);
+};
+
+const verifyForgotPassword = async (req: Request, res: Response) => {
+  const result = await authenticationService.verifyForgotPassword(req.body);
+  res.status(200).send(result);
+};
+
+const setNewPassword = async (req: Request, res: Response) => {
+  const result = await authenticationService.setNewPassword(req.body);
+  res.status(201).send(result);
+};
+
 export const authenticationController = {
   register,
   verifyAccount,
   resendVerificationEmail,
   login,
+  forgotPassword,
+  verifyForgotPassword,
+  setNewPassword,
 };

@@ -1,4 +1,4 @@
-import { User } from "../../../prisma/generated/prisma/client";
+import { OtpPurpose, User } from "../../../prisma/generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 import AppError from "../../utils/AppError";
 import transporter from "../../utils/transporter";
@@ -6,6 +6,7 @@ import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../../config";
+import { otpGenerator } from "../../utils/otpGenerator";
 const register = async (data: Pick<User, "name" | "email" | "password">) => {
   const userAlready = await prisma.user.findFirst({
     where: { email: data.email },
@@ -174,9 +175,114 @@ const login = async (data: { email: string; password: string }) => {
   };
 };
 
+const forgotPassword = async (data: { email: string }) => {
+  const user = await prisma.user.findUnique({ where: { email: data.email } });
+  if (!user) {
+    throw new AppError("No account found with this email.");
+  }
+  await prisma.oTP.deleteMany({ where: { email: data.email } });
+  const { otp, hashOtp, expiresAt } = await otpGenerator();
+
+  await prisma.oTP.create({
+    data: {
+      email: data.email,
+      expiresAt,
+      otp: hashOtp,
+      purpose: "FORGOT_PASSWORD",
+    },
+  });
+
+  try {
+    const info = await transporter.sendMail({
+      from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
+      to: data.email,
+      subject: "Forgot password verification code",
+      text: "Forgot password verification code",
+      html: `<b>Forgot password verification code is ${otp}</b>`,
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  } catch (err) {
+    console.error("Error while sending mail:", err);
+  }
+  return { success: true, message: "Verification email sent" };
+};
+
+const verifyForgotPassword = async (data: { otp: string; email: string }) => {
+  const otpRecord = await prisma.oTP.findFirst({
+    where: { email: data.email, purpose: "FORGOT_PASSWORD", isUsed: false },
+  });
+  if (!otpRecord) {
+    throw new AppError("Invalid OTP", 400);
+  }
+  if (otpRecord.expiresAt < new Date()) {
+    throw new AppError("OTP expired.", 400);
+  }
+  const isMatch = await bcrypt.compare(data.otp, otpRecord.otp);
+  if (!isMatch) {
+    throw new AppError("Invalid OTP", 400);
+  }
+  await prisma.oTP.update({
+    where: { id: otpRecord.id },
+    data: {
+      isUsed: true,
+    },
+  });
+  const user = await prisma.user.findUnique({ where: { email: data.email } });
+  if (!user) {
+    throw new AppError("User not found");
+  }
+  const token = jwt.sign(
+    { id: user?.id, type: OtpPurpose.FORGOT_PASSWORD, email: user?.email },
+    config.JWT_SECRET as string,
+  );
+  console.log(token);
+
+  return { success: true, message: "OTP verified.", data: token };
+};
+const setNewPassword = async (data: { token: string; newPassword: string }) => {
+  const { token, newPassword } = data;
+
+  if (!token || !newPassword) {
+    throw new AppError("Token and new password are required.", 400);
+  }
+
+  let decoded: jwt.JwtPayload;
+
+  try {
+    decoded = jwt.verify(token, config.JWT_SECRET as string) as jwt.JwtPayload;
+  } catch (error) {
+    throw new AppError("Invalid or expired token", 400);
+  }
+
+  if (decoded.type !== OtpPurpose.FORGOT_PASSWORD || !decoded.email) {
+    throw new AppError("Invalid token", 400);
+  }
+
+  const hashPassword = await bcrypt.hash(newPassword, 10);
+
+  await prisma.user.update({
+    where: {
+      email: decoded.email,
+    },
+    data: {
+      password: hashPassword,
+    },
+  });
+
+  return {
+    success: true,
+    message: "Password reset successfully.",
+  };
+};
+
 export const authenticationService = {
   register,
   verifyAccount,
   resendVerificationEmail,
   login,
+  forgotPassword,
+  verifyForgotPassword,
+  setNewPassword,
 };
