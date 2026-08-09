@@ -44,4 +44,7 @@ router.post(
   asyncHandler(authenticationController.changePassword),
 );
 
+//update user
+router.patch("/users/:id", asyncHandler(authenticationController.updateUser));
+
 export const authenticationRoutes: Router = router;

@@ -59,6 +59,14 @@ const changePassword = async (req: Request, res: Response) => {
   res.status(301).send(result);
 };
 
+const updateUser = async (req: Request, res: Response) => {
+  const result = await authenticationService.updateUser(
+    req.params.id as string,
+    req.body,
+  );
+  res.status(301).json(result);
+};
+
 export const authenticationController = {
   register,
   verifyAccount,
@@ -68,4 +76,5 @@ export const authenticationController = {
   verifyForgotPassword,
   setNewPassword,
   changePassword,
+  updateUser,
 };

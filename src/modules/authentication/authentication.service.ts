@@ -304,6 +304,20 @@ const changePassword = async (
   return { success: true, message: "Password updated successfully." };
 };
 
+const updateUser = async (id: string, data: Pick<User, "name">) => {
+  if (!id) throw new AppError("Id is required to update user.");
+  if (Object.keys(data).length === 0) {
+    throw new AppError("At least one field required to update");
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: { id },
+    data,
+  });
+
+  return { success: true, message: "User details updated", data: updatedUser };
+};
+
 export const authenticationService = {
   register,
   verifyAccount,
@@ -313,4 +327,5 @@ export const authenticationService = {
   verifyForgotPassword,
   setNewPassword,
   changePassword,
+  updateUser,
 };
