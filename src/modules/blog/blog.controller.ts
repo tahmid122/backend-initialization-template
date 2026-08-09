@@ -16,5 +16,14 @@ const getAllBlogs = async (req: Request, res: Response) => {
   const result = await blogService.getAllBlogs(req.query);
   res.status(200).send(result);
 };
+const getSingleBlog = async (req: Request, res: Response) => {
+  const result = await blogService.getSingleBlog(req.params.blogId as string);
+  res.status(200).send(result);
+};
 
-export const blogController = { createBlog, updateBlog, getAllBlogs };
+export const blogController = {
+  createBlog,
+  updateBlog,
+  getAllBlogs,
+  getSingleBlog,
+};

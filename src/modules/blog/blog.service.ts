@@ -66,6 +66,9 @@ const getAllBlogs = async (query: Record<string, any>) => {
   const blogs = await prisma.blog.findMany({
     skip: (page - 1) * limit,
     take: limit,
+    orderBy: {
+      createdAt: "desc",
+    },
   });
   const totalBlogs = await prisma.blog.count();
   return {
@@ -76,4 +79,17 @@ const getAllBlogs = async (query: Record<string, any>) => {
   };
 };
 
-export const blogService = { createBlog, updateBlog, getAllBlogs };
+const getSingleBlog = async (id: string) => {
+  if (!id) {
+    throw new AppError("Id is required to get single blog details");
+  }
+  const blog = await prisma.blog.findUnique({ where: { id } });
+  return { success: true, message: "Blog details retrieved", data: blog };
+};
+
+export const blogService = {
+  createBlog,
+  updateBlog,
+  getAllBlogs,
+  getSingleBlog,
+};

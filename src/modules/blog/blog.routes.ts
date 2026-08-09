@@ -16,5 +16,7 @@ router.patch(
 );
 //get all blogs
 router.get("/", asyncHandler(blogController.getAllBlogs));
+//get single blog
+router.get("/:blogId", asyncHandler(blogController.getSingleBlog));
 
 export const blogRoutes = router;
