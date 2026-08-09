@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const BlogStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  UNLISTED: 'UNLISTED'
+} as const
+
+export type BlogStatus = (typeof BlogStatus)[keyof typeof BlogStatus]
+
+
 export const OtpPurpose = {
   REGISTER: 'REGISTER',
   FORGOT_PASSWORD: 'FORGOT_PASSWORD'
