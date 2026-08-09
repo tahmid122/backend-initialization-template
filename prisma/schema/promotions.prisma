@@ -1,0 +1,18 @@
+model Promotion {
+    id               String   @id @default(uuid())
+    name             String
+    degree           String
+    yearOfExperience Int
+    designation      String
+    image            String?
+    phone            String
+    description      String?
+    serves           String[]
+    chamber          String?
+    availability     String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("promotions")
+}
