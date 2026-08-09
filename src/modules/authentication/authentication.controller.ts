@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { authenticationService } from "./authentication.service";
+import { JWT_USER } from "../../middlewares/auth";
 
 const register = async (req: Request, res: Response) => {
   await authenticationService.register(req.body);
@@ -50,6 +51,13 @@ const setNewPassword = async (req: Request, res: Response) => {
   res.status(201).send(result);
 };
 
+const changePassword = async (req: Request, res: Response) => {
+  const result = await authenticationService.changePassword(
+    req.body,
+    req.user as JWT_USER,
+  );
+};
+
 export const authenticationController = {
   register,
   verifyAccount,
@@ -58,4 +66,5 @@ export const authenticationController = {
   forgotPassword,
   verifyForgotPassword,
   setNewPassword,
+  changePassword,
 };

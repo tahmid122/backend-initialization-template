@@ -1,6 +1,8 @@
 import { Router } from "express";
 import asyncHandler from "../../utils/asyncHandler";
 import { authenticationController } from "./authentication.controller";
+import auth from "../../middlewares/auth";
+import { UserRole } from "../../../prisma/generated/prisma/enums";
 
 const router = Router();
 
@@ -35,6 +37,11 @@ router.post(
 router.post(
   "/set-new-password",
   asyncHandler(authenticationController.setNewPassword),
+);
+router.post(
+  "/change-password",
+  auth(UserRole.ADMIN, UserRole.USER),
+  asyncHandler(authenticationController.changePassword),
 );
 
 export const authenticationRoutes: Router = router;

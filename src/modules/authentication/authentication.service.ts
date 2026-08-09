@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../../config";
 import { otpGenerator } from "../../utils/otpGenerator";
+import { JWT_USER } from "../../middlewares/auth";
 const register = async (data: Pick<User, "name" | "email" | "password">) => {
   const userAlready = await prisma.user.findFirst({
     where: { email: data.email },
@@ -277,6 +278,16 @@ const setNewPassword = async (data: { token: string; newPassword: string }) => {
   };
 };
 
+const changePassword = async (
+  data: {
+    oldPassword: string;
+    newPassword: string;
+  },
+  user: JWT_USER,
+) => {
+  console.log(data, user);
+};
+
 export const authenticationService = {
   register,
   verifyAccount,
@@ -285,4 +296,5 @@ export const authenticationService = {
   forgotPassword,
   verifyForgotPassword,
   setNewPassword,
+  changePassword,
 };
