@@ -19,7 +19,6 @@ const auth = (...roles: UserRole[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
-    console.log(token);
     if (!token) {
       return res.status(401).json({
         success: false,

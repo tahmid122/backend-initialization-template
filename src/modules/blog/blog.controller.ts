@@ -12,6 +12,9 @@ const updateBlog = async (req: Request, res: Response) => {
   res.status(201).send(result);
 };
 
-const getAllBlogs = async (req: Request, res: Response) => {};
+const getAllBlogs = async (req: Request, res: Response) => {
+  const result = await blogService.getAllBlogs(req.query);
+  res.status(200).send(result);
+};
 
 export const blogController = { createBlog, updateBlog, getAllBlogs };

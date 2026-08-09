@@ -60,6 +60,20 @@ const updateBlog = async (id: string, payload: BlogPayload) => {
   };
 };
 
-const getAllBlogs = async () => {};
+const getAllBlogs = async (query: Record<string, any>) => {
+  const page = Number(query.page) || 1;
+  const limit = Number(query.limit) || 12;
+  const blogs = await prisma.blog.findMany({
+    skip: (page - 1) * limit,
+    take: limit,
+  });
+  const totalBlogs = await prisma.blog.count();
+  return {
+    success: true,
+    message: "Blogs fetched successfully",
+    meta: { page, limit, total: totalBlogs },
+    data: blogs,
+  };
+};
 
 export const blogService = { createBlog, updateBlog, getAllBlogs };
