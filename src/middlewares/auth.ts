@@ -19,13 +19,13 @@ const auth = (...roles: UserRole[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
+    console.log(token);
     if (!token) {
       return res.status(401).json({
         success: false,
         message: "Unauthorized access.",
       });
     }
-
     let decoded: jwt.JwtPayload;
 
     try {
@@ -50,6 +50,7 @@ const auth = (...roles: UserRole[]) => {
         message: "Invalid token payload.",
       });
     }
+
     req.user = {
       id: decoded.id,
       email: decoded.email,

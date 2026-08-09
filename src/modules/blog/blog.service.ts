@@ -60,4 +60,6 @@ const updateBlog = async (id: string, payload: BlogPayload) => {
   };
 };
 
-export const blogService = { createBlog, updateBlog };
+const getAllBlogs = async () => {};
+
+export const blogService = { createBlog, updateBlog, getAllBlogs };
