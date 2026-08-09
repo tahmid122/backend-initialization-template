@@ -283,9 +283,25 @@ const changePassword = async (
     oldPassword: string;
     newPassword: string;
   },
-  user: JWT_USER,
+  userData: JWT_USER,
 ) => {
-  console.log(data, user);
+  const user = await prisma.user.findUnique({
+    where: { email: userData.email },
+  });
+  if (!user) {
+    throw new AppError("User not found");
+  }
+  const isMatch = await bcrypt.compare(data.oldPassword, user.password);
+  if (!isMatch) {
+    throw new AppError("Password not matched. Invalid Old password.");
+  }
+  const hashPassword = await bcrypt.hash(data.newPassword, 10);
+  await prisma.user.update({
+    where: { email: user.email },
+    data: { password: hashPassword },
+  });
+
+  return { success: true, message: "Password updated successfully." };
 };
 
 export const authenticationService = {

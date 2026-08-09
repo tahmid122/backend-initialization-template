@@ -56,6 +56,7 @@ const changePassword = async (req: Request, res: Response) => {
     req.body,
     req.user as JWT_USER,
   );
+  res.status(301).send(result);
 };
 
 export const authenticationController = {
