@@ -52,6 +52,11 @@ export type Blog = Prisma.BlogModel
  */
 export type OTP = Prisma.OTPModel
 /**
+ * Model Promotion
+ * 
+ */
+export type Promotion = Prisma.PromotionModel
+/**
  * Model User
  * 
  */

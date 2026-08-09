@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Blog: 'Blog',
   OTP: 'OTP',
+  Promotion: 'Promotion',
   User: 'User'
 } as const
 
@@ -97,6 +98,25 @@ export const OTPScalarFieldEnum = {
 } as const
 
 export type OTPScalarFieldEnum = (typeof OTPScalarFieldEnum)[keyof typeof OTPScalarFieldEnum]
+
+
+export const PromotionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  degree: 'degree',
+  yearOfExperience: 'yearOfExperience',
+  designation: 'designation',
+  image: 'image',
+  phone: 'phone',
+  description: 'description',
+  serves: 'serves',
+  chamber: 'chamber',
+  availability: 'availability',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PromotionScalarFieldEnum = (typeof PromotionScalarFieldEnum)[keyof typeof PromotionScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
