@@ -86,10 +86,24 @@ const deleteAPromotion = async (id: string) => {
   return deletedPromotion;
 };
 
+//get all categories
+const getAllCategories = async () => {
+  const categories = await prisma.promotion.findMany({
+    distinct: ["designation"],
+    select: { designation: true },
+  });
+  const uniqueCategories = [
+    ...new Set(categories.map((cat) => cat.designation)),
+  ];
+
+  return uniqueCategories;
+};
+
 export const promotionService = {
   createPromotion,
   updatePromotion,
   getAllPromotions,
   getSinglePromotion,
   deleteAPromotion,
+  getAllCategories,
 };

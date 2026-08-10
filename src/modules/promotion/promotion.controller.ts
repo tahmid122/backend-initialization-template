@@ -45,10 +45,20 @@ const deleteAPromotion = async (req: Request, res: Response) => {
     .status(204)
     .send({ success: true, message: "Promotion deleted", data: result });
 };
+//get all categories
+const getAllCategories = async (req: Request, res: Response) => {
+  const result = await promotionService.getAllCategories();
+  res.status(200).send({
+    success: true,
+    message: "All categories retrieved.",
+    data: result,
+  });
+};
 export const promotionController = {
   createPromotion,
   updatePromotion,
   getAllPromotions,
   getSinglePromotion,
   deleteAPromotion,
+  getAllCategories,
 };

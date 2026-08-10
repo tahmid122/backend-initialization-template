@@ -20,6 +20,8 @@ router.patch(
 );
 //get all promotions
 router.get("/", asyncHandler(promotionController.getAllPromotions));
+//get all categories
+router.get("/categories", asyncHandler(promotionController.getAllCategories));
 //get single
 router.get("/:id", asyncHandler(promotionController.getSinglePromotion));
 //delete
