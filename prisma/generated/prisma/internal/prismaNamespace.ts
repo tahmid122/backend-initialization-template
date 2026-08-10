@@ -400,6 +400,7 @@ export const ModelName = {
   Blog: 'Blog',
   OTP: 'OTP',
   Promotion: 'Promotion',
+  Support: 'Support',
   User: 'User'
 } as const
 
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "blog" | "oTP" | "promotion" | "user"
+    modelProps: "blog" | "oTP" | "promotion" | "support" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -642,6 +643,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Support: {
+      payload: Prisma.$SupportPayload<ExtArgs>
+      fields: Prisma.SupportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SupportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SupportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>
+        }
+        findFirst: {
+          args: Prisma.SupportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SupportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>
+        }
+        findMany: {
+          args: Prisma.SupportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>[]
+        }
+        create: {
+          args: Prisma.SupportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>
+        }
+        createMany: {
+          args: Prisma.SupportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SupportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>[]
+        }
+        delete: {
+          args: Prisma.SupportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>
+        }
+        update: {
+          args: Prisma.SupportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>
+        }
+        deleteMany: {
+          args: Prisma.SupportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SupportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SupportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>[]
+        }
+        upsert: {
+          args: Prisma.SupportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportPayload>
+        }
+        aggregate: {
+          args: Prisma.SupportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupport>
+        }
+        groupBy: {
+          args: Prisma.SupportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SupportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupportCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -801,6 +876,17 @@ export const PromotionScalarFieldEnum = {
 export type PromotionScalarFieldEnum = (typeof PromotionScalarFieldEnum)[keyof typeof PromotionScalarFieldEnum]
 
 
+export const SupportScalarFieldEnum = {
+  id: 'id',
+  problem: 'problem',
+  adminReply: 'adminReply',
+  userId: 'userId',
+  status: 'status'
+} as const
+
+export type SupportScalarFieldEnum = (typeof SupportScalarFieldEnum)[keyof typeof SupportScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -919,6 +1005,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SupportStatus'
+ */
+export type EnumSupportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SupportStatus[]'
+ */
+export type ListEnumSupportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportStatus[]'>
     
 
 
@@ -1103,6 +1203,7 @@ export type GlobalOmitConfig = {
   blog?: Prisma.BlogOmit
   oTP?: Prisma.OTPOmit
   promotion?: Prisma.PromotionOmit
+  support?: Prisma.SupportOmit
   user?: Prisma.UserOmit
 }
 

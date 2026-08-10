@@ -57,6 +57,11 @@ export type OTP = Prisma.OTPModel
  */
 export type Promotion = Prisma.PromotionModel
 /**
+ * Model Support
+ * 
+ */
+export type Support = Prisma.SupportModel
+/**
  * Model User
  * 
  */

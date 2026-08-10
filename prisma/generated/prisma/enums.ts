@@ -26,6 +26,15 @@ export const OtpPurpose = {
 export type OtpPurpose = (typeof OtpPurpose)[keyof typeof OtpPurpose]
 
 
+export const SupportStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  RESOLVED: 'RESOLVED'
+} as const
+
+export type SupportStatus = (typeof SupportStatus)[keyof typeof SupportStatus]
+
+
 export const UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN'

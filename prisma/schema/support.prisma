@@ -1,0 +1,14 @@
+enum SupportStatus {
+    PENDING
+    IN_PROGRESS
+    RESOLVED
+}
+
+model Support {
+    id         String        @id @default(uuid())
+    problem    String
+    adminReply String
+    userId     String
+    user       User          @relation(fields: [userId], references: [id])
+    status     SupportStatus @default(PENDING)
+}

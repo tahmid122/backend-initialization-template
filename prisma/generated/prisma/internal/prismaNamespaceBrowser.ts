@@ -54,6 +54,7 @@ export const ModelName = {
   Blog: 'Blog',
   OTP: 'OTP',
   Promotion: 'Promotion',
+  Support: 'Support',
   User: 'User'
 } as const
 
@@ -117,6 +118,17 @@ export const PromotionScalarFieldEnum = {
 } as const
 
 export type PromotionScalarFieldEnum = (typeof PromotionScalarFieldEnum)[keyof typeof PromotionScalarFieldEnum]
+
+
+export const SupportScalarFieldEnum = {
+  id: 'id',
+  problem: 'problem',
+  adminReply: 'adminReply',
+  userId: 'userId',
+  status: 'status'
+} as const
+
+export type SupportScalarFieldEnum = (typeof SupportScalarFieldEnum)[keyof typeof SupportScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

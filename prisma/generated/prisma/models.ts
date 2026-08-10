@@ -11,5 +11,6 @@
 export type * from './models/Blog'
 export type * from './models/OTP'
 export type * from './models/Promotion'
+export type * from './models/Support'
 export type * from './models/User'
 export type * from './commonInputTypes'
