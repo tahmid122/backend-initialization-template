@@ -1,5 +1,6 @@
 import {
   ServiceRequest,
+  ServiceRequestStatus,
   UserRole,
 } from "../../../prisma/generated/prisma/client";
 import { prisma } from "../../lib/prisma";
@@ -64,8 +65,27 @@ const deleteRequest = async (id: string, user: JWT_USER) => {
   return deletedRequest;
 };
 
+const updateStatus = async (id: string, status: ServiceRequestStatus) => {
+  const request = await prisma.serviceRequest.findUnique({ where: { id } });
+  if (!request) {
+    throw new AppError("Record not found");
+  }
+  console.log(status);
+  if (status && !Object.keys(ServiceRequestStatus).includes(status)) {
+    throw new AppError(
+      `Status must be ${Object.keys(ServiceRequestStatus).join(" | ")}`,
+    );
+  }
+  const updatedRequest = await prisma.serviceRequest.update({
+    where: { id },
+    data: { status },
+  });
+  return updatedRequest;
+};
+
 export const serviceRequestService = {
   createRequest,
   getAllRequests,
   deleteRequest,
+  updateStatus,
 };

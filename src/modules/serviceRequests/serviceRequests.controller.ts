@@ -36,8 +36,19 @@ const deleteRequest = async (req: Request, res: Response) => {
   });
 };
 
+const updateStatus = async (req: Request, res: Response) => {
+  const result = await serviceRequestService.updateStatus(
+    req.params.id as string,
+    req.body.status,
+  );
+  res
+    .status(301)
+    .send({ success: true, message: "Status updated", data: result });
+};
+
 export const serviceRequestController = {
   createRequest,
   getAllRequests,
   deleteRequest,
+  updateStatus,
 };

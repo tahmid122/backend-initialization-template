@@ -16,6 +16,11 @@ router.delete(
   auth(UserRole.ADMIN, UserRole.USER),
   asyncHandler(serviceRequestController.deleteRequest),
 );
+router.patch(
+  "/:id",
+  auth(UserRole.ADMIN),
+  asyncHandler(serviceRequestController.updateStatus),
+);
 router.post(
   "/",
   auth(UserRole.USER),
