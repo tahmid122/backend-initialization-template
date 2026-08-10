@@ -28,4 +28,19 @@ const updatePackage = async (payload: Partial<PackageType>, id: string) => {
   return updatedData;
 };
 
-export const packageService = { createPackage, updatePackage };
+const getAllPackages = async (query: Record<string, any>) => {
+  const page = Number(query.page) || 1;
+  const limit = Number(query.limit) || 10;
+
+  const packages = await prisma.package.findMany({
+    skip: (page - 1) * limit,
+    take: limit,
+  });
+  const total = await prisma.package.count();
+  return {
+    meta: { page, limit, total, totalPage: Math.ceil(total / limit) },
+    data: packages,
+  };
+};
+
+export const packageService = { createPackage, updatePackage, getAllPackages };

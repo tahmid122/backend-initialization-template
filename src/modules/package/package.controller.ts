@@ -20,4 +20,12 @@ const updatePackage = async (req: Request, res: Response) => {
     .send({ success: true, message: "Package updated.", data: result });
 };
 
-export const packageController = { createPackage, updatePackage };
+const getAllPackages = async (req: Request, res: Response) => {
+  const result = await packageService.getAllPackages(req.query);
+  res.status(200).send({ success: true, ...result });
+};
+export const packageController = {
+  createPackage,
+  updatePackage,
+  getAllPackages,
+};

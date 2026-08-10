@@ -6,6 +6,7 @@ import { packageController } from "./package.controller";
 
 const router = Router();
 
+router.get("/", asyncHandler(packageController.getAllPackages));
 router.post(
   "/",
   auth(UserRole.ADMIN),
