@@ -125,7 +125,9 @@ export const SupportScalarFieldEnum = {
   problem: 'problem',
   adminReply: 'adminReply',
   userId: 'userId',
-  status: 'status'
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type SupportScalarFieldEnum = (typeof SupportScalarFieldEnum)[keyof typeof SupportScalarFieldEnum]

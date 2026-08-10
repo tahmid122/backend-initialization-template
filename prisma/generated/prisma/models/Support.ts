@@ -30,6 +30,8 @@ export type SupportMinAggregateOutputType = {
   adminReply: string | null
   userId: string | null
   status: $Enums.SupportStatus | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SupportMaxAggregateOutputType = {
@@ -38,6 +40,8 @@ export type SupportMaxAggregateOutputType = {
   adminReply: string | null
   userId: string | null
   status: $Enums.SupportStatus | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SupportCountAggregateOutputType = {
@@ -46,6 +50,8 @@ export type SupportCountAggregateOutputType = {
   adminReply: number
   userId: number
   status: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -56,6 +62,8 @@ export type SupportMinAggregateInputType = {
   adminReply?: true
   userId?: true
   status?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type SupportMaxAggregateInputType = {
@@ -64,6 +72,8 @@ export type SupportMaxAggregateInputType = {
   adminReply?: true
   userId?: true
   status?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type SupportCountAggregateInputType = {
@@ -72,6 +82,8 @@ export type SupportCountAggregateInputType = {
   adminReply?: true
   userId?: true
   status?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -150,9 +162,11 @@ export type SupportGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type SupportGroupByOutputType = {
   id: string
   problem: string
-  adminReply: string
+  adminReply: string | null
   userId: string
   status: $Enums.SupportStatus
+  createdAt: Date
+  updatedAt: Date
   _count: SupportCountAggregateOutputType | null
   _min: SupportMinAggregateOutputType | null
   _max: SupportMaxAggregateOutputType | null
@@ -179,18 +193,22 @@ export type SupportWhereInput = {
   NOT?: Prisma.SupportWhereInput | Prisma.SupportWhereInput[]
   id?: Prisma.StringFilter<"Support"> | string
   problem?: Prisma.StringFilter<"Support"> | string
-  adminReply?: Prisma.StringFilter<"Support"> | string
+  adminReply?: Prisma.StringNullableFilter<"Support"> | string | null
   userId?: Prisma.StringFilter<"Support"> | string
   status?: Prisma.EnumSupportStatusFilter<"Support"> | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFilter<"Support"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Support"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type SupportOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   problem?: Prisma.SortOrder
-  adminReply?: Prisma.SortOrder
+  adminReply?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -200,18 +218,22 @@ export type SupportWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SupportWhereInput[]
   NOT?: Prisma.SupportWhereInput | Prisma.SupportWhereInput[]
   problem?: Prisma.StringFilter<"Support"> | string
-  adminReply?: Prisma.StringFilter<"Support"> | string
+  adminReply?: Prisma.StringNullableFilter<"Support"> | string | null
   userId?: Prisma.StringFilter<"Support"> | string
   status?: Prisma.EnumSupportStatusFilter<"Support"> | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFilter<"Support"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Support"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type SupportOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   problem?: Prisma.SortOrder
-  adminReply?: Prisma.SortOrder
+  adminReply?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.SupportCountOrderByAggregateInput
   _max?: Prisma.SupportMaxOrderByAggregateInput
   _min?: Prisma.SupportMinOrderByAggregateInput
@@ -223,64 +245,80 @@ export type SupportScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SupportScalarWhereWithAggregatesInput | Prisma.SupportScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Support"> | string
   problem?: Prisma.StringWithAggregatesFilter<"Support"> | string
-  adminReply?: Prisma.StringWithAggregatesFilter<"Support"> | string
+  adminReply?: Prisma.StringNullableWithAggregatesFilter<"Support"> | string | null
   userId?: Prisma.StringWithAggregatesFilter<"Support"> | string
   status?: Prisma.EnumSupportStatusWithAggregatesFilter<"Support"> | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Support"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Support"> | Date | string
 }
 
 export type SupportCreateInput = {
   id?: string
   problem: string
-  adminReply: string
+  adminReply?: string | null
   status?: $Enums.SupportStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSupportTicketsInput
 }
 
 export type SupportUncheckedCreateInput = {
   id?: string
   problem: string
-  adminReply: string
+  adminReply?: string | null
   userId: string
   status?: $Enums.SupportStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SupportUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   problem?: Prisma.StringFieldUpdateOperationsInput | string
-  adminReply?: Prisma.StringFieldUpdateOperationsInput | string
+  adminReply?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSupportStatusFieldUpdateOperationsInput | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSupportTicketsNestedInput
 }
 
 export type SupportUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   problem?: Prisma.StringFieldUpdateOperationsInput | string
-  adminReply?: Prisma.StringFieldUpdateOperationsInput | string
+  adminReply?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportStatusFieldUpdateOperationsInput | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SupportCreateManyInput = {
   id?: string
   problem: string
-  adminReply: string
+  adminReply?: string | null
   userId: string
   status?: $Enums.SupportStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SupportUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   problem?: Prisma.StringFieldUpdateOperationsInput | string
-  adminReply?: Prisma.StringFieldUpdateOperationsInput | string
+  adminReply?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSupportStatusFieldUpdateOperationsInput | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SupportUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   problem?: Prisma.StringFieldUpdateOperationsInput | string
-  adminReply?: Prisma.StringFieldUpdateOperationsInput | string
+  adminReply?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportStatusFieldUpdateOperationsInput | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SupportCountOrderByAggregateInput = {
@@ -289,6 +327,8 @@ export type SupportCountOrderByAggregateInput = {
   adminReply?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SupportMaxOrderByAggregateInput = {
@@ -297,6 +337,8 @@ export type SupportMaxOrderByAggregateInput = {
   adminReply?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SupportMinOrderByAggregateInput = {
@@ -305,6 +347,8 @@ export type SupportMinOrderByAggregateInput = {
   adminReply?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SupportListRelationFilter = {
@@ -366,15 +410,19 @@ export type SupportUncheckedUpdateManyWithoutUserNestedInput = {
 export type SupportCreateWithoutUserInput = {
   id?: string
   problem: string
-  adminReply: string
+  adminReply?: string | null
   status?: $Enums.SupportStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SupportUncheckedCreateWithoutUserInput = {
   id?: string
   problem: string
-  adminReply: string
+  adminReply?: string | null
   status?: $Enums.SupportStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SupportCreateOrConnectWithoutUserInput = {
@@ -409,37 +457,47 @@ export type SupportScalarWhereInput = {
   NOT?: Prisma.SupportScalarWhereInput | Prisma.SupportScalarWhereInput[]
   id?: Prisma.StringFilter<"Support"> | string
   problem?: Prisma.StringFilter<"Support"> | string
-  adminReply?: Prisma.StringFilter<"Support"> | string
+  adminReply?: Prisma.StringNullableFilter<"Support"> | string | null
   userId?: Prisma.StringFilter<"Support"> | string
   status?: Prisma.EnumSupportStatusFilter<"Support"> | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFilter<"Support"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Support"> | Date | string
 }
 
 export type SupportCreateManyUserInput = {
   id?: string
   problem: string
-  adminReply: string
+  adminReply?: string | null
   status?: $Enums.SupportStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SupportUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   problem?: Prisma.StringFieldUpdateOperationsInput | string
-  adminReply?: Prisma.StringFieldUpdateOperationsInput | string
+  adminReply?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSupportStatusFieldUpdateOperationsInput | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SupportUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   problem?: Prisma.StringFieldUpdateOperationsInput | string
-  adminReply?: Prisma.StringFieldUpdateOperationsInput | string
+  adminReply?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSupportStatusFieldUpdateOperationsInput | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SupportUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   problem?: Prisma.StringFieldUpdateOperationsInput | string
-  adminReply?: Prisma.StringFieldUpdateOperationsInput | string
+  adminReply?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumSupportStatusFieldUpdateOperationsInput | $Enums.SupportStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -450,6 +508,8 @@ export type SupportSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   adminReply?: boolean
   userId?: boolean
   status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["support"]>
 
@@ -459,6 +519,8 @@ export type SupportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   adminReply?: boolean
   userId?: boolean
   status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["support"]>
 
@@ -468,6 +530,8 @@ export type SupportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   adminReply?: boolean
   userId?: boolean
   status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["support"]>
 
@@ -477,9 +541,11 @@ export type SupportSelectScalar = {
   adminReply?: boolean
   userId?: boolean
   status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type SupportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "problem" | "adminReply" | "userId" | "status", ExtArgs["result"]["support"]>
+export type SupportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "problem" | "adminReply" | "userId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["support"]>
 export type SupportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -498,9 +564,11 @@ export type $SupportPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     problem: string
-    adminReply: string
+    adminReply: string | null
     userId: string
     status: $Enums.SupportStatus
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["support"]>
   composites: {}
 }
@@ -930,6 +998,8 @@ export interface SupportFieldRefs {
   readonly adminReply: Prisma.FieldRef<"Support", 'String'>
   readonly userId: Prisma.FieldRef<"Support", 'String'>
   readonly status: Prisma.FieldRef<"Support", 'SupportStatus'>
+  readonly createdAt: Prisma.FieldRef<"Support", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Support", 'DateTime'>
 }
     
 
