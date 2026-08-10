@@ -12,4 +12,9 @@ router.post(
   asyncHandler(packageController.createPackage),
 );
 
+router.patch(
+  "/:id",
+  auth(UserRole.ADMIN),
+  asyncHandler(packageController.updatePackage),
+);
 export const packageRoutes = router;
