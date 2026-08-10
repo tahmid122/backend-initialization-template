@@ -12,5 +12,11 @@ router.post(
   auth(UserRole.ADMIN),
   asyncHandler(promotionController.createPromotion),
 );
+//update promotion
+router.patch(
+  "/:id",
+  auth(UserRole.ADMIN),
+  asyncHandler(promotionController.updatePromotion),
+);
 
 export const promotionRoutes: Router = router;
