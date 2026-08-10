@@ -74,7 +74,7 @@ const getAllBlogs = async (query: Record<string, any>) => {
   return {
     success: true,
     message: "Blogs fetched successfully",
-    meta: { page, limit, total: totalBlogs },
+    meta: { page, limit, total: totalBlogs, totalPages: totalBlogs / limit },
     data: blogs,
   };
 };

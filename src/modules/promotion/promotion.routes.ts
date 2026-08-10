@@ -18,5 +18,7 @@ router.patch(
   auth(UserRole.ADMIN),
   asyncHandler(promotionController.updatePromotion),
 );
+//get all promotions
+router.get("/", asyncHandler(promotionController.getAllPromotions));
 
 export const promotionRoutes: Router = router;

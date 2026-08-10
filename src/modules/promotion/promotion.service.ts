@@ -7,10 +7,10 @@ const createPromotion = async (
   data: Omit<Promotion, "id" | "createdAt" | "updatedAt">,
 ) => {
   const promotion = await prisma.promotion.create({ data });
-  console.log(promotion);
 
   return promotion;
 };
+//update promotion
 const updatePromotion = async (
   id: string,
   payload: Omit<Promotion, "id" | "createdAt" | "updatedAt">,
@@ -52,4 +52,29 @@ const updatePromotion = async (
 
   return updatedPromotion;
 };
-export const promotionService = { createPromotion, updatePromotion };
+
+//get all promotions
+const getAllPromotions = async (query: Record<string, any>) => {
+  const page = Number(query.page) || 1;
+  const limit = Number(query.limit) || 12;
+  const promotions = await prisma.promotion.findMany({
+    skip: (page - 1) * limit,
+    take: limit,
+  });
+  const total = await prisma.promotion.count();
+  return {
+    meta: {
+      page,
+      limit,
+      totalData: total,
+      totalPages: Math.ceil(total / limit),
+    },
+    data: promotions,
+  };
+};
+
+export const promotionService = {
+  createPromotion,
+  updatePromotion,
+  getAllPromotions,
+};

@@ -21,4 +21,14 @@ const updatePromotion = async (req: Request, res: Response) => {
     .status(301)
     .send({ success: true, message: "Promotion updated", data: result });
 };
-export const promotionController = { createPromotion, updatePromotion };
+
+//get all promotions
+const getAllPromotions = async (req: Request, res: Response) => {
+  const result = await promotionService.getAllPromotions(req.query);
+  res.status(200).send({ success: true, ...result });
+};
+export const promotionController = {
+  createPromotion,
+  updatePromotion,
+  getAllPromotions,
+};
