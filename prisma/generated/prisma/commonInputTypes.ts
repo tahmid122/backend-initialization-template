@@ -184,6 +184,40 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
+export type EnumServiceRequestTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestType | Prisma.EnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestTypeFilter<$PrismaModel> | $Enums.ServiceRequestType
+}
+
+export type EnumServiceRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestStatus | Prisma.EnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestStatusFilter<$PrismaModel> | $Enums.ServiceRequestStatus
+}
+
+export type EnumServiceRequestTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestType | Prisma.EnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestTypeWithAggregatesFilter<$PrismaModel> | $Enums.ServiceRequestType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumServiceRequestTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumServiceRequestTypeFilter<$PrismaModel>
+}
+
+export type EnumServiceRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestStatus | Prisma.EnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumServiceRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumServiceRequestStatusFilter<$PrismaModel>
+}
+
 export type EnumSupportStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.SupportStatus | Prisma.EnumSupportStatusFieldRefInput<$PrismaModel>
   in?: $Enums.SupportStatus[] | Prisma.ListEnumSupportStatusFieldRefInput<$PrismaModel>
@@ -399,6 +433,40 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumServiceRequestTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestType | Prisma.EnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestTypeFilter<$PrismaModel> | $Enums.ServiceRequestType
+}
+
+export type NestedEnumServiceRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestStatus | Prisma.EnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestStatusFilter<$PrismaModel> | $Enums.ServiceRequestStatus
+}
+
+export type NestedEnumServiceRequestTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestType | Prisma.EnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestType[] | Prisma.ListEnumServiceRequestTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestTypeWithAggregatesFilter<$PrismaModel> | $Enums.ServiceRequestType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumServiceRequestTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumServiceRequestTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumServiceRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ServiceRequestStatus | Prisma.EnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ServiceRequestStatus[] | Prisma.ListEnumServiceRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumServiceRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumServiceRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumServiceRequestStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumSupportStatusFilter<$PrismaModel = never> = {

@@ -1,0 +1,28 @@
+enum ServiceRequestType {
+    CUSTOM
+    PACKAGE
+}
+
+enum ServiceRequestStatus {
+    REQUESTED
+    PAYMENT_PENDING
+    CONFIRMED
+    COMPLETED
+}
+
+model ServiceRequest {
+    id          String               @id @default(uuid())
+    userId      String
+    user        User                 @relation(fields: [userId], references: [id])
+    type        ServiceRequestType
+    status      ServiceRequestStatus @default(REQUESTED)
+    description String?
+    packageId   String?
+    package     Package?             @relation(fields: [packageId], references: [id])
+    contactInfo String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("serviceRequests")
+}

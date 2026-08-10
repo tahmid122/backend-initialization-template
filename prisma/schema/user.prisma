@@ -4,13 +4,14 @@ enum UserRole {
 }
 
 model User {
-    id             String    @id @default(uuid())
+    id             String           @id @default(uuid())
     name           String
-    email          String    @unique
+    email          String           @unique
     password       String
-    isVerified     Boolean   @default(false)
-    role           UserRole  @default(USER)
+    isVerified     Boolean          @default(false)
+    role           UserRole         @default(USER)
     supportTickets Support[]
+    services       ServiceRequest[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

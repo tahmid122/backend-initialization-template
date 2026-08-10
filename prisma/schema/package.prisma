@@ -1,12 +1,12 @@
 model Package {
-    id          String   @id @default(uuid())
-    title       String
-    description String?
-    features    String[]
-    startPrice  Int      @default(0)
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id              String           @id @default(uuid())
+    title           String
+    description     String?
+    features        String[]
+    startPrice      Int              @default(0)
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
+    serviceRequests ServiceRequest[]
 
     @@map("packages")
 }

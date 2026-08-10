@@ -26,6 +26,24 @@ export const OtpPurpose = {
 export type OtpPurpose = (typeof OtpPurpose)[keyof typeof OtpPurpose]
 
 
+export const ServiceRequestType = {
+  CUSTOM: 'CUSTOM',
+  PACKAGE: 'PACKAGE'
+} as const
+
+export type ServiceRequestType = (typeof ServiceRequestType)[keyof typeof ServiceRequestType]
+
+
+export const ServiceRequestStatus = {
+  REQUESTED: 'REQUESTED',
+  PAYMENT_PENDING: 'PAYMENT_PENDING',
+  CONFIRMED: 'CONFIRMED',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type ServiceRequestStatus = (typeof ServiceRequestStatus)[keyof typeof ServiceRequestStatus]
+
+
 export const SupportStatus = {
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',

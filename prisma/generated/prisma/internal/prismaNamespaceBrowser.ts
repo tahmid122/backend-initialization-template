@@ -55,6 +55,7 @@ export const ModelName = {
   OTP: 'OTP',
   Package: 'Package',
   Promotion: 'Promotion',
+  ServiceRequest: 'ServiceRequest',
   Support: 'Support',
   User: 'User'
 } as const
@@ -132,6 +133,21 @@ export const PromotionScalarFieldEnum = {
 } as const
 
 export type PromotionScalarFieldEnum = (typeof PromotionScalarFieldEnum)[keyof typeof PromotionScalarFieldEnum]
+
+
+export const ServiceRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  status: 'status',
+  description: 'description',
+  packageId: 'packageId',
+  contactInfo: 'contactInfo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServiceRequestScalarFieldEnum = (typeof ServiceRequestScalarFieldEnum)[keyof typeof ServiceRequestScalarFieldEnum]
 
 
 export const SupportScalarFieldEnum = {

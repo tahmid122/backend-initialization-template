@@ -38,6 +38,11 @@ export type Package = Prisma.PackageModel
  */
 export type Promotion = Prisma.PromotionModel
 /**
+ * Model ServiceRequest
+ * 
+ */
+export type ServiceRequest = Prisma.ServiceRequestModel
+/**
  * Model Support
  * 
  */

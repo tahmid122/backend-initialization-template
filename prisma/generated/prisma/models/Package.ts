@@ -228,6 +228,7 @@ export type PackageWhereInput = {
   startPrice?: Prisma.IntFilter<"Package"> | number
   createdAt?: Prisma.DateTimeFilter<"Package"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Package"> | Date | string
+  serviceRequests?: Prisma.ServiceRequestListRelationFilter
 }
 
 export type PackageOrderByWithRelationInput = {
@@ -238,6 +239,7 @@ export type PackageOrderByWithRelationInput = {
   startPrice?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  serviceRequests?: Prisma.ServiceRequestOrderByRelationAggregateInput
 }
 
 export type PackageWhereUniqueInput = Prisma.AtLeast<{
@@ -251,6 +253,7 @@ export type PackageWhereUniqueInput = Prisma.AtLeast<{
   startPrice?: Prisma.IntFilter<"Package"> | number
   createdAt?: Prisma.DateTimeFilter<"Package"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Package"> | Date | string
+  serviceRequests?: Prisma.ServiceRequestListRelationFilter
 }, "id">
 
 export type PackageOrderByWithAggregationInput = {
@@ -289,6 +292,7 @@ export type PackageCreateInput = {
   startPrice?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutPackageInput
 }
 
 export type PackageUncheckedCreateInput = {
@@ -299,6 +303,7 @@ export type PackageUncheckedCreateInput = {
   startPrice?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type PackageUpdateInput = {
@@ -309,6 +314,7 @@ export type PackageUpdateInput = {
   startPrice?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutPackageNestedInput
 }
 
 export type PackageUncheckedUpdateInput = {
@@ -319,6 +325,7 @@ export type PackageUncheckedUpdateInput = {
   startPrice?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type PackageCreateManyInput = {
@@ -395,6 +402,11 @@ export type PackageSumOrderByAggregateInput = {
   startPrice?: Prisma.SortOrder
 }
 
+export type PackageNullableScalarRelationFilter = {
+  is?: Prisma.PackageWhereInput | null
+  isNot?: Prisma.PackageWhereInput | null
+}
+
 export type PackageCreatefeaturesInput = {
   set: string[]
 }
@@ -412,6 +424,107 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type PackageCreateNestedOneWithoutServiceRequestsInput = {
+  create?: Prisma.XOR<Prisma.PackageCreateWithoutServiceRequestsInput, Prisma.PackageUncheckedCreateWithoutServiceRequestsInput>
+  connectOrCreate?: Prisma.PackageCreateOrConnectWithoutServiceRequestsInput
+  connect?: Prisma.PackageWhereUniqueInput
+}
+
+export type PackageUpdateOneWithoutServiceRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.PackageCreateWithoutServiceRequestsInput, Prisma.PackageUncheckedCreateWithoutServiceRequestsInput>
+  connectOrCreate?: Prisma.PackageCreateOrConnectWithoutServiceRequestsInput
+  upsert?: Prisma.PackageUpsertWithoutServiceRequestsInput
+  disconnect?: Prisma.PackageWhereInput | boolean
+  delete?: Prisma.PackageWhereInput | boolean
+  connect?: Prisma.PackageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PackageUpdateToOneWithWhereWithoutServiceRequestsInput, Prisma.PackageUpdateWithoutServiceRequestsInput>, Prisma.PackageUncheckedUpdateWithoutServiceRequestsInput>
+}
+
+export type PackageCreateWithoutServiceRequestsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  features?: Prisma.PackageCreatefeaturesInput | string[]
+  startPrice?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PackageUncheckedCreateWithoutServiceRequestsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  features?: Prisma.PackageCreatefeaturesInput | string[]
+  startPrice?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PackageCreateOrConnectWithoutServiceRequestsInput = {
+  where: Prisma.PackageWhereUniqueInput
+  create: Prisma.XOR<Prisma.PackageCreateWithoutServiceRequestsInput, Prisma.PackageUncheckedCreateWithoutServiceRequestsInput>
+}
+
+export type PackageUpsertWithoutServiceRequestsInput = {
+  update: Prisma.XOR<Prisma.PackageUpdateWithoutServiceRequestsInput, Prisma.PackageUncheckedUpdateWithoutServiceRequestsInput>
+  create: Prisma.XOR<Prisma.PackageCreateWithoutServiceRequestsInput, Prisma.PackageUncheckedCreateWithoutServiceRequestsInput>
+  where?: Prisma.PackageWhereInput
+}
+
+export type PackageUpdateToOneWithWhereWithoutServiceRequestsInput = {
+  where?: Prisma.PackageWhereInput
+  data: Prisma.XOR<Prisma.PackageUpdateWithoutServiceRequestsInput, Prisma.PackageUncheckedUpdateWithoutServiceRequestsInput>
+}
+
+export type PackageUpdateWithoutServiceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  features?: Prisma.PackageUpdatefeaturesInput | string[]
+  startPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PackageUncheckedUpdateWithoutServiceRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  features?: Prisma.PackageUpdatefeaturesInput | string[]
+  startPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type PackageCountOutputType
+ */
+
+export type PackageCountOutputType = {
+  serviceRequests: number
+}
+
+export type PackageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  serviceRequests?: boolean | PackageCountOutputTypeCountServiceRequestsArgs
+}
+
+/**
+ * PackageCountOutputType without action
+ */
+export type PackageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PackageCountOutputType
+   */
+  select?: Prisma.PackageCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PackageCountOutputType without action
+ */
+export type PackageCountOutputTypeCountServiceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServiceRequestWhereInput
+}
 
 
 export type PackageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -422,6 +535,8 @@ export type PackageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   startPrice?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  serviceRequests?: boolean | Prisma.Package$serviceRequestsArgs<ExtArgs>
+  _count?: boolean | Prisma.PackageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["package"]>
 
 export type PackageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -455,10 +570,18 @@ export type PackageSelectScalar = {
 }
 
 export type PackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "features" | "startPrice" | "createdAt" | "updatedAt", ExtArgs["result"]["package"]>
+export type PackageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  serviceRequests?: boolean | Prisma.Package$serviceRequestsArgs<ExtArgs>
+  _count?: boolean | Prisma.PackageCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type PackageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PackageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $PackagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Package"
-  objects: {}
+  objects: {
+    serviceRequests: Prisma.$ServiceRequestPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
@@ -861,6 +984,7 @@ readonly fields: PackageFieldRefs;
  */
 export interface Prisma__PackageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  serviceRequests<T extends Prisma.Package$serviceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Package$serviceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServiceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -914,6 +1038,10 @@ export type PackageFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter, which Package to fetch.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -932,6 +1060,10 @@ export type PackageFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter, which Package to fetch.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -949,6 +1081,10 @@ export type PackageFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
   /**
    * Filter, which Package to fetch.
    */
@@ -998,6 +1134,10 @@ export type PackageFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter, which Package to fetch.
    */
   where?: Prisma.PackageWhereInput
@@ -1045,6 +1185,10 @@ export type PackageFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
   /**
    * Filter, which Packages to fetch.
    */
@@ -1094,6 +1238,10 @@ export type PackageCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * The data needed to create a Package.
    */
   data: Prisma.XOR<Prisma.PackageCreateInput, Prisma.PackageUncheckedCreateInput>
@@ -1141,6 +1289,10 @@ export type PackageUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
   /**
    * The data needed to update a Package.
    */
@@ -1208,6 +1360,10 @@ export type PackageUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * The filter to search for the Package to update in case it exists.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -1234,6 +1390,10 @@ export type PackageDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter which Package to delete.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -1254,6 +1414,30 @@ export type PackageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Package.serviceRequests
+ */
+export type Package$serviceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ServiceRequest
+   */
+  select?: Prisma.ServiceRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ServiceRequest
+   */
+  omit?: Prisma.ServiceRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceRequestInclude<ExtArgs> | null
+  where?: Prisma.ServiceRequestWhereInput
+  orderBy?: Prisma.ServiceRequestOrderByWithRelationInput | Prisma.ServiceRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ServiceRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ServiceRequestScalarFieldEnum | Prisma.ServiceRequestScalarFieldEnum[]
+}
+
+/**
  * Package without action
  */
 export type PackageDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1265,4 +1449,8 @@ export type PackageDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
 }
