@@ -13,4 +13,12 @@ const createSupport = async (req: Request, res: Response) => {
     .send({ success: true, message: "Support ticket created.", data: result });
 };
 
-export const supportController = { createSupport };
+//get all support tickets
+const getAllSupportTickets = async (req: Request, res: Response) => {
+  const result = await supportService.getAllSupportTickets(
+    req.user as JWT_USER,
+    req.query,
+  );
+  res.status(200).send(result);
+};
+export const supportController = { createSupport, getAllSupportTickets };

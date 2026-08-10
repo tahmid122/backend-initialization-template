@@ -13,4 +13,11 @@ router.post(
   asyncHandler(supportController.createSupport),
 );
 
+//get all support tickets
+router.get(
+  "/",
+  auth(UserRole.ADMIN, UserRole.USER),
+  asyncHandler(supportController.getAllSupportTickets),
+);
+
 export const supportRoutes = router;
