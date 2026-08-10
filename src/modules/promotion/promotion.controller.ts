@@ -36,10 +36,19 @@ const getSinglePromotion = async (req: Request, res: Response) => {
     .status(200)
     .send({ success: true, message: "Promotion retrieved.", data: result });
 };
-
+//delete promotion
+const deleteAPromotion = async (req: Request, res: Response) => {
+  const result = await promotionService.deleteAPromotion(
+    req.params.id as string,
+  );
+  res
+    .status(204)
+    .send({ success: true, message: "Promotion deleted", data: result });
+};
 export const promotionController = {
   createPromotion,
   updatePromotion,
   getAllPromotions,
   getSinglePromotion,
+  deleteAPromotion,
 };

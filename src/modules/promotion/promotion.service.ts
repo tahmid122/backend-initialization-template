@@ -60,6 +60,7 @@ const getAllPromotions = async (query: Record<string, any>) => {
   const promotions = await prisma.promotion.findMany({
     skip: (page - 1) * limit,
     take: limit,
+    orderBy: { createdAt: "desc" },
   });
   const total = await prisma.promotion.count();
   return {
@@ -79,9 +80,16 @@ const getSinglePromotion = async (id: string) => {
   return promotion;
 };
 
+//delete a promotion
+const deleteAPromotion = async (id: string) => {
+  const deletedPromotion = await prisma.promotion.delete({ where: { id } });
+  return deletedPromotion;
+};
+
 export const promotionService = {
   createPromotion,
   updatePromotion,
   getAllPromotions,
   getSinglePromotion,
+  deleteAPromotion,
 };

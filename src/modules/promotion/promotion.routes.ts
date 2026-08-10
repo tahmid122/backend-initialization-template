@@ -22,4 +22,10 @@ router.patch(
 router.get("/", asyncHandler(promotionController.getAllPromotions));
 //get single
 router.get("/:id", asyncHandler(promotionController.getSinglePromotion));
+//delete
+router.delete(
+  "/:id",
+  auth(UserRole.ADMIN),
+  asyncHandler(promotionController.deleteAPromotion),
+);
 export const promotionRoutes: Router = router;
