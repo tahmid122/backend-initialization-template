@@ -8,6 +8,7 @@ const router = Router();
 
 router.get("/", asyncHandler(packageController.getAllPackages));
 router.get("/:id", asyncHandler(packageController.getSinglePackage));
+router.delete("/:id", asyncHandler(packageController.deleteSinglePackage));
 router.post(
   "/",
   auth(UserRole.ADMIN),

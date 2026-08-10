@@ -35,6 +35,7 @@ const getAllPackages = async (query: Record<string, any>) => {
   const packages = await prisma.package.findMany({
     skip: (page - 1) * limit,
     take: limit,
+    orderBy: { createdAt: "desc" },
   });
   const total = await prisma.package.count();
   return {
@@ -47,10 +48,15 @@ const getSinglePackage = async (id: string) => {
   const singlePackage = await prisma.package.findUnique({ where: { id } });
   return singlePackage;
 };
+const deleteSinglePackage = async (id: string) => {
+  const deletedPackage = await prisma.package.delete({ where: { id } });
+  return deletedPackage;
+};
 
 export const packageService = {
   createPackage,
   updatePackage,
   getAllPackages,
   getSinglePackage,
+  deleteSinglePackage,
 };
