@@ -6,6 +6,11 @@ import { serviceRequestController } from "./serviceRequests.controller";
 
 const router = Router();
 
+router.get(
+  "/",
+  auth(UserRole.ADMIN, UserRole.USER),
+  asyncHandler(serviceRequestController.getAllRequests),
+);
 router.post(
   "/",
   auth(UserRole.USER),

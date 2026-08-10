@@ -7,13 +7,21 @@ const createRequest = async (req: Request, res: Response) => {
     req.body,
     req.user as JWT_USER,
   );
-  res
-    .status(201)
-    .send({
-      success: true,
-      message: "Request sent successfully",
-      data: result,
-    });
+  res.status(201).send({
+    success: true,
+    message: "Request sent successfully",
+    data: result,
+  });
 };
 
-export const serviceRequestController = { createRequest };
+const getAllRequests = async (req: Request, res: Response) => {
+  const result = await serviceRequestService.getAllRequests(
+    req.query,
+    req.user as JWT_USER,
+  );
+  res
+    .status(200)
+    .send({ success: true, message: "Request retrieved.", ...result });
+};
+
+export const serviceRequestController = { createRequest, getAllRequests };
