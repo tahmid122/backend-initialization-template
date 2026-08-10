@@ -27,8 +27,19 @@ const getAllPromotions = async (req: Request, res: Response) => {
   const result = await promotionService.getAllPromotions(req.query);
   res.status(200).send({ success: true, ...result });
 };
+//get single promotion
+const getSinglePromotion = async (req: Request, res: Response) => {
+  const result = await promotionService.getSinglePromotion(
+    req.params.id as string,
+  );
+  res
+    .status(200)
+    .send({ success: true, message: "Promotion retrieved.", data: result });
+};
+
 export const promotionController = {
   createPromotion,
   updatePromotion,
   getAllPromotions,
+  getSinglePromotion,
 };

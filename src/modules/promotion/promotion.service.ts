@@ -73,8 +73,15 @@ const getAllPromotions = async (query: Record<string, any>) => {
   };
 };
 
+// get single promotion
+const getSinglePromotion = async (id: string) => {
+  const promotion = await prisma.promotion.findUnique({ where: { id } });
+  return promotion;
+};
+
 export const promotionService = {
   createPromotion,
   updatePromotion,
   getAllPromotions,
+  getSinglePromotion,
 };

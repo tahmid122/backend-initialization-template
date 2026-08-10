@@ -20,5 +20,6 @@ router.patch(
 );
 //get all promotions
 router.get("/", asyncHandler(promotionController.getAllPromotions));
-
+//get single
+router.get("/:id", asyncHandler(promotionController.getSinglePromotion));
 export const promotionRoutes: Router = router;
