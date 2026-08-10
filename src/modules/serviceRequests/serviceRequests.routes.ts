@@ -11,6 +11,11 @@ router.get(
   auth(UserRole.ADMIN, UserRole.USER),
   asyncHandler(serviceRequestController.getAllRequests),
 );
+router.delete(
+  "/:id",
+  auth(UserRole.ADMIN, UserRole.USER),
+  asyncHandler(serviceRequestController.deleteRequest),
+);
 router.post(
   "/",
   auth(UserRole.USER),

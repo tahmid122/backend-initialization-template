@@ -4,6 +4,7 @@ import {
 } from "../../../prisma/generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 import { JWT_USER } from "../../middlewares/auth";
+import AppError from "../../utils/AppError";
 
 type RequestService = Omit<
   ServiceRequest,
@@ -51,4 +52,20 @@ const getAllRequests = async (query: Record<string, any>, user: JWT_USER) => {
   };
 };
 
-export const serviceRequestService = { createRequest, getAllRequests };
+const deleteRequest = async (id: string, user: JWT_USER) => {
+  const request = await prisma.serviceRequest.findUnique({ where: { id } });
+  if (!request) {
+    throw new AppError("Record not found");
+  }
+  if (request && user.role === UserRole.USER && request.userId !== user.id) {
+    throw new AppError("Only admin can delete other users request");
+  }
+  const deletedRequest = await prisma.serviceRequest.delete({ where: { id } });
+  return deletedRequest;
+};
+
+export const serviceRequestService = {
+  createRequest,
+  getAllRequests,
+  deleteRequest,
+};

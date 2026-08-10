@@ -24,4 +24,20 @@ const getAllRequests = async (req: Request, res: Response) => {
     .send({ success: true, message: "Request retrieved.", ...result });
 };
 
-export const serviceRequestController = { createRequest, getAllRequests };
+const deleteRequest = async (req: Request, res: Response) => {
+  const result = await serviceRequestService.deleteRequest(
+    req.params.id as string,
+    req.user as JWT_USER,
+  );
+  res.status(301).send({
+    success: true,
+    message: "Request successfully deleted",
+    data: result,
+  });
+};
+
+export const serviceRequestController = {
+  createRequest,
+  getAllRequests,
+  deleteRequest,
+};
