@@ -1,6 +1,11 @@
-import { Support, UserRole } from "../../../prisma/generated/prisma/client";
+import {
+  Support,
+  SupportStatus,
+  UserRole,
+} from "../../../prisma/generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 import { JWT_USER } from "../../middlewares/auth";
+import AppError from "../../utils/AppError";
 
 //create support
 const createSupport = async (
@@ -12,6 +17,8 @@ const createSupport = async (
   });
   return createdSupport;
 };
+
+//get all support tickets
 const getAllSupportTickets = async (
   user: JWT_USER,
   query: Record<string, any>,
@@ -44,4 +51,31 @@ const getAllSupportTickets = async (
   };
 };
 
-export const supportService = { createSupport, getAllSupportTickets };
+//update support ticket
+const updateSupportTicket = async (
+  payload: { status?: SupportStatus; adminReply?: string },
+  id: string,
+) => {
+  const { status, adminReply } = payload;
+  if (status && !Object.keys(SupportStatus).includes(status)) {
+    throw new AppError(
+      `Status must be ${Object.keys(SupportStatus).join(" | ")}`,
+    );
+  }
+  const updateData = {} as { status?: SupportStatus; adminReply?: string };
+
+  if (status !== undefined) updateData.status = status;
+  if (adminReply !== undefined) updateData.adminReply = adminReply;
+
+  const updatedSupportTicket = await prisma.support.update({
+    where: { id: id },
+    data: updateData,
+  });
+  return updatedSupportTicket;
+};
+
+export const supportService = {
+  createSupport,
+  getAllSupportTickets,
+  updateSupportTicket,
+};

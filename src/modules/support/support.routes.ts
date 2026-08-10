@@ -19,5 +19,11 @@ router.get(
   auth(UserRole.ADMIN, UserRole.USER),
   asyncHandler(supportController.getAllSupportTickets),
 );
+//update support ticket
+router.patch(
+  "/:id",
+  auth(UserRole.ADMIN),
+  asyncHandler(supportController.updateSupportTicket),
+);
 
 export const supportRoutes = router;

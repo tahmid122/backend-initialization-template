@@ -21,4 +21,18 @@ const getAllSupportTickets = async (req: Request, res: Response) => {
   );
   res.status(200).send(result);
 };
-export const supportController = { createSupport, getAllSupportTickets };
+//update support ticket
+const updateSupportTicket = async (req: Request, res: Response) => {
+  const result = await supportService.updateSupportTicket(
+    req.body,
+    req.params.id as string,
+  );
+  res
+    .status(301)
+    .send({ success: true, message: "Ticket updated.", data: result });
+};
+export const supportController = {
+  createSupport,
+  getAllSupportTickets,
+  updateSupportTicket,
+};
