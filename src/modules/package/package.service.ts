@@ -43,4 +43,14 @@ const getAllPackages = async (query: Record<string, any>) => {
   };
 };
 
-export const packageService = { createPackage, updatePackage, getAllPackages };
+const getSinglePackage = async (id: string) => {
+  const singlePackage = await prisma.package.findUnique({ where: { id } });
+  return singlePackage;
+};
+
+export const packageService = {
+  createPackage,
+  updatePackage,
+  getAllPackages,
+  getSinglePackage,
+};
