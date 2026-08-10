@@ -4,6 +4,7 @@ import { authenticationRoutes } from "./modules/authentication/authentication.ro
 import { blogRoutes } from "./modules/blog/blog.routes";
 import { promotionRoutes } from "./modules/promotion/promotion.routes";
 import { supportRoutes } from "./modules/support/support.routes";
+import { packageRoutes } from "./modules/package/package.routes";
 
 //authentication
 router.use("/auth", authenticationRoutes);
@@ -13,4 +14,6 @@ router.use("/blogs", blogRoutes);
 router.use("/promotions", promotionRoutes);
 //support
 router.use("/support", supportRoutes);
+//package
+router.use("/packages", packageRoutes);
 export default router;

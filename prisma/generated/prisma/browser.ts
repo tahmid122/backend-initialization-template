@@ -28,6 +28,11 @@ export type Blog = Prisma.BlogModel
  */
 export type OTP = Prisma.OTPModel
 /**
+ * Model Package
+ * 
+ */
+export type Package = Prisma.PackageModel
+/**
  * Model Promotion
  * 
  */
