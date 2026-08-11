@@ -3,12 +3,18 @@ enum UserRole {
     ADMIN
 }
 
+enum UserStatus {
+    ACTIVE
+    BANNED
+}
+
 model User {
     id             String           @id @default(uuid())
     name           String
     email          String           @unique
     password       String
     isVerified     Boolean          @default(false)
+    status         UserStatus       @default(ACTIVE)
     role           UserRole         @default(USER)
     supportTickets Support[]
     services       ServiceRequest[]

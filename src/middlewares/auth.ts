@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { UserRole } from "../../prisma/generated/prisma/enums";
 import jwt from "jsonwebtoken";
 import config from "../config";
+import { prisma } from "../lib/prisma";
 export interface JWT_USER {
   id: string;
   email: string;
@@ -16,7 +17,7 @@ declare global {
 }
 
 const auth = (...roles: UserRole[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
     if (!token) {
@@ -49,11 +50,24 @@ const auth = (...roles: UserRole[]) => {
         message: "Invalid token payload.",
       });
     }
+    const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+    if (user.status !== "ACTIVE") {
+      return res.status(403).json({
+        success: false,
+        message: "Forbidden.",
+      });
+    }
 
     req.user = {
-      id: decoded.id,
-      email: decoded.email,
-      role: decoded.role as UserRole,
+      id: user.id,
+      email: user.email,
+      role: user.role as UserRole,
     };
 
     if (roles.length > 0 && !roles.includes(req.user.role)) {
