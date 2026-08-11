@@ -9,4 +9,11 @@ const updateUserStatus = async (req: Request, res: Response) => {
     .send({ success: true, message: "User status Updated.", data: result });
 };
 
-export const userController = { updateUserStatus };
+const getAllUsers = async (req: Request, res: Response) => {
+  const result = await userService.getAllUsers(req.query);
+
+  res
+    .status(200)
+    .send({ success: true, message: "Users retrieved.", ...result });
+};
+export const userController = { updateUserStatus, getAllUsers };

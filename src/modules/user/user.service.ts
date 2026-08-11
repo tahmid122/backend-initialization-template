@@ -15,4 +15,21 @@ const updateUserStatus = async (id: string) => {
 
   return updatedUser;
 };
-export const userService = { updateUserStatus };
+
+const getAllUsers = async (query: Record<string, any>) => {
+  const page = Number(query.page) || 1;
+  const limit = Number(query.limit) || 10;
+
+  const users = await prisma.user.findMany({
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: { createdAt: "desc" },
+  });
+  const total = await prisma.user.count();
+  return {
+    meta: { page, limit, total, totalPage: Math.ceil(total / limit) },
+    data: users,
+  };
+};
+
+export const userService = { updateUserStatus, getAllUsers };
