@@ -11,8 +11,8 @@ async function main() {
       console.log(`Server running at http://localhost:${config.PORT}/api/v1`);
     });
   } catch (error) {
-    console.error(error);
-    process.exit(1);
+    // console.error(error);
+    // process.exit(1);
   }
 }
 main();

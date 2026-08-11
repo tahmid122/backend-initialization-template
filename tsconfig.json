@@ -1,12 +1,17 @@
 {
+  "include": ["src"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ES2023",
-    "strict": true,
+    "target": "es2016",
+
+    "module": "commonjs",
+    "rootDir": "./src",
+    "resolveJsonModule": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
-    "outDir": "./dist"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "prisma/generated/prisma"]
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+
+    "skipLibCheck": true
+  }
 }

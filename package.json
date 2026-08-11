@@ -14,8 +14,8 @@
   },
   "scripts": {
     "dev": "bunx tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "bun ./dist/src/server.js",
+    "build": "bun build ./src/server.ts --outdir ./dist --target node",
+    "start": "bunx tsx watch src/server.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
