@@ -83,7 +83,7 @@ const verifyAccount = async (data: { otp: string; email: string }) => {
     throw new AppError("Invalid OTP", 400);
   }
   if (otpRecord.expiresAt < new Date()) {
-    throw new AppError("OTP has expired.", 400);
+    throw new AppError("OTP has been expired.", 400);
   }
   const isMatch = await bcrypt.compare(data.otp, otpRecord.otp);
   if (!isMatch) {
@@ -238,7 +238,6 @@ const verifyForgotPassword = async (data: { otp: string; email: string }) => {
     { id: user?.id, type: OtpPurpose.FORGOT_PASSWORD, email: user?.email },
     config.JWT_SECRET as string,
   );
-  console.log(token);
 
   return { success: true, message: "OTP verified.", data: token };
 };
