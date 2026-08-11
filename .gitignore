@@ -1,6 +1,8 @@
 # dependencies (bun install)
 node_modules
-
+.agents
+.claude
+.windsurf
 # output
 out
 dist
@@ -34,3 +36,5 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .DS_Store
 
 /generated/prisma
+
+.vercel
