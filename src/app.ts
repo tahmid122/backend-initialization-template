@@ -8,7 +8,12 @@ const app = express();
 //default middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: config.APP_URL, credentials: true }));
+app.use(
+  cors({
+    origin: [config.APP_URL as string, config.APP_LIVE_URL as string],
+    credentials: true,
+  }),
+);
 
 //routes
 app.use("/api/v1", routes);
