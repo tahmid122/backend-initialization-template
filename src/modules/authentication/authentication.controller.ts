@@ -27,12 +27,12 @@ const resendVerificationEmail = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   const result = await authenticationService.login(req.body);
-  res.cookie("accessToken", result.data.token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 3600000 * 24,
-  });
+  // res.cookie("accessToken", result.data.token, {
+  //   httpOnly: true,
+  //   secure: true,
+  //   sameSite: "none",
+  //   maxAge: 3600000 * 24,
+  // });
   res.status(200).send(result);
 };
 
@@ -67,6 +67,11 @@ const updateUser = async (req: Request, res: Response) => {
   res.status(301).json(result);
 };
 
+const getProfile = async (req: Request, res: Response) => {
+  const result = await authenticationService.getProfile(req.user as JWT_USER);
+  res.status(200).json(result);
+};
+
 export const authenticationController = {
   register,
   verifyAccount,
@@ -77,4 +82,5 @@ export const authenticationController = {
   setNewPassword,
   changePassword,
   updateUser,
+  getProfile,
 };

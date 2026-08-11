@@ -303,18 +303,26 @@ const changePassword = async (
   return { success: true, message: "Password updated successfully." };
 };
 
-const updateUser = async (id: string, data: Pick<User, "name">) => {
+const updateUser = async (id: string, data: Pick<User, "name" | "image">) => {
   if (!id) throw new AppError("Id is required to update user.");
   if (Object.keys(data).length === 0) {
     throw new AppError("At least one field required to update");
   }
-
   const updatedUser = await prisma.user.update({
     where: { id },
     data,
   });
 
   return { success: true, message: "User details updated", data: updatedUser };
+};
+
+const getProfile = async (user: JWT_USER) => {
+  if (!user.id) throw new AppError("Id is required to get user details.");
+  const userData = await prisma.user.findUnique({
+    where: { id: user.id },
+    omit: { password: true },
+  });
+  return { success: true, message: "User details retrieved", data: userData };
 };
 
 export const authenticationService = {
@@ -327,4 +335,5 @@ export const authenticationService = {
   setNewPassword,
   changePassword,
   updateUser,
+  getProfile,
 };

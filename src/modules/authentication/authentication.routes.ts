@@ -47,4 +47,11 @@ router.post(
 //update user
 router.patch("/users/:id", asyncHandler(authenticationController.updateUser));
 
+//get me
+router.get(
+  "/me",
+  auth(UserRole.ADMIN, UserRole.USER),
+  asyncHandler(authenticationController.getProfile),
+);
+
 export const authenticationRoutes: Router = router;
