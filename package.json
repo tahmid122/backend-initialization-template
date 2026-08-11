@@ -7,18 +7,19 @@
     "@types/bun": "latest",
     "@types/node": "^26.2.0",
     "@types/pg": "^8.21.0",
-    "prisma": "^7.9.1",
-    "tsx": "^4.23.11"
-  },
-  "peerDependencies": {
+    "prisma": "7.9.1",
+    "tsx": "^4.23.11",
     "typescript": "5.9.3"
   },
   "scripts": {
-    "dev": "bunx tsx watch src/server.ts"
+    "dev": "bunx tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.9.1",
-    "@prisma/client": "^7.9.1",
+    "@prisma/adapter-pg": "7.9.1",
+    "@prisma/client": "7.9.1",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",

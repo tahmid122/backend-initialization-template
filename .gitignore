@@ -8,6 +8,8 @@ out
 dist
 *.tgz
 
+./prisma/generated
+
 # code coverage
 coverage
 *.lcov
