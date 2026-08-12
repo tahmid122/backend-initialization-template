@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: [config.APP_URL as string, config.APP_LIVE_URL as string],
+    origin: ["http://localhost:3000"],
     credentials: true,
   }),
 );

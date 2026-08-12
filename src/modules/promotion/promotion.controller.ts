@@ -18,7 +18,7 @@ const updatePromotion = async (req: Request, res: Response) => {
     req.body,
   );
   res
-    .status(301)
+    .status(201)
     .send({ success: true, message: "Promotion updated", data: result });
 };
 

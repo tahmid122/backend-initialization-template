@@ -29,7 +29,7 @@ const deleteRequest = async (req: Request, res: Response) => {
     req.params.id as string,
     req.user as JWT_USER,
   );
-  res.status(301).send({
+  res.status(201).send({
     success: true,
     message: "Request successfully deleted",
     data: result,
@@ -42,7 +42,7 @@ const updateStatus = async (req: Request, res: Response) => {
     req.body.status,
   );
   res
-    .status(301)
+    .status(201)
     .send({ success: true, message: "Status updated", data: result });
 };
 

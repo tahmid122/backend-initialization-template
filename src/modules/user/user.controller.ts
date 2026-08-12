@@ -5,7 +5,7 @@ const updateUserStatus = async (req: Request, res: Response) => {
   const result = await userService.updateUserStatus(req.params.id as string);
 
   res
-    .status(301)
+    .status(201)
     .send({ success: true, message: "User status Updated.", data: result });
 };
 

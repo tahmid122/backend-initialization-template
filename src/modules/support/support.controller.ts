@@ -28,7 +28,7 @@ const updateSupportTicket = async (req: Request, res: Response) => {
     req.params.id as string,
   );
   res
-    .status(301)
+    .status(201)
     .send({ success: true, message: "Ticket updated.", data: result });
 };
 export const supportController = {

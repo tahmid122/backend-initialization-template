@@ -56,7 +56,7 @@ const changePassword = async (req: Request, res: Response) => {
     req.body,
     req.user as JWT_USER,
   );
-  res.status(301).send(result);
+  res.status(201).send(result);
 };
 
 const updateUser = async (req: Request, res: Response) => {
@@ -64,7 +64,7 @@ const updateUser = async (req: Request, res: Response) => {
     req.params.id as string,
     req.body,
   );
-  res.status(301).json(result);
+  res.status(201).json(result);
 };
 
 const getProfile = async (req: Request, res: Response) => {
