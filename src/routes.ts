@@ -7,6 +7,7 @@ import { supportRoutes } from "./modules/support/support.routes";
 import { packageRoutes } from "./modules/package/package.routes";
 import { serviceRequestsRoutes } from "./modules/serviceRequests/serviceRequests.routes";
 import { userRoutes } from "./modules/user/user.routes";
+import { analyticsRoutes } from "./modules/analytics/analytics.routes";
 
 //authentication
 router.use("/auth", authenticationRoutes);
@@ -22,4 +23,6 @@ router.use("/packages", packageRoutes);
 router.use("/service-requests", serviceRequestsRoutes);
 //users management
 router.use("/users", userRoutes);
+//analytics
+router.use("/analytics", analyticsRoutes);
 export default router;
