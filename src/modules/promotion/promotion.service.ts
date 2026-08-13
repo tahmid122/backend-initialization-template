@@ -58,8 +58,11 @@ const getAllPromotions = async (query: Record<string, any>) => {
   const page = Number(query.page) || 1;
   const limit = Number(query.limit) || 12;
   const category = query.category || undefined;
+  const searchTerm = query.searchTerm || undefined;
   const promotions = await prisma.promotion.findMany({
-    where: { designation: category },
+    where: {
+      designation: category,
+    },
     skip: (page - 1) * limit,
     take: limit,
     orderBy: { createdAt: "desc" },

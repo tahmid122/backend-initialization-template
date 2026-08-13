@@ -42,7 +42,7 @@ const deleteAPromotion = async (req: Request, res: Response) => {
     req.params.id as string,
   );
   res
-    .status(204)
+    .status(201)
     .send({ success: true, message: "Promotion deleted", data: result });
 };
 //get all categories

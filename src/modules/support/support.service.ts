@@ -25,6 +25,7 @@ const getAllSupportTickets = async (
 ) => {
   const page = Number(query.page) || 1;
   const limit = Number(query.limit) || 10;
+  const status = query.status || undefined;
 
   if (user.role === UserRole.USER) {
     const result = await prisma.support.findMany({
@@ -39,6 +40,7 @@ const getAllSupportTickets = async (
     };
   }
   const result = await prisma.support.findMany({
+    where: { status: status },
     include: { user: true },
     skip: (page - 1) * limit,
     take: limit,
