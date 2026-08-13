@@ -12,14 +12,15 @@ interface BlogPayload {
 
 //create blog
 const createBlog = async (
-  data: Pick<Blog, "title" | "content" | "thumbnail">,
+  data: Pick<Blog, "title" | "content" | "thumbnail" | "status">,
 ) => {
-  const { title, content, thumbnail } = data;
+  const { title, content, thumbnail, status = "PUBLISHED" } = data;
   const createdBlog = await prisma.blog.create({
     data: {
       title,
       content,
       thumbnail,
+      status,
     },
   });
   return {
@@ -74,7 +75,12 @@ const getAllBlogs = async (query: Record<string, any>) => {
   return {
     success: true,
     message: "Blogs fetched successfully",
-    meta: { page, limit, total: totalBlogs, totalPage: totalBlogs / limit },
+    meta: {
+      page,
+      limit,
+      total: totalBlogs,
+      totalPage: Math.ceil(totalBlogs / limit),
+    },
     data: blogs,
   };
 };
