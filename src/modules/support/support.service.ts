@@ -35,7 +35,7 @@ const getAllSupportTickets = async (
     });
     const total = await prisma.support.count({ where: { userId: user.id } });
     return {
-      meta: { page, limit, total: total, totalPage: total / limit },
+      meta: { page, limit, total: total, totalPage: Math.ceil(total / limit) },
       data: result,
     };
   }
@@ -48,7 +48,7 @@ const getAllSupportTickets = async (
   });
   const total = await prisma.support.count();
   return {
-    meta: { page, limit, total: total, totalPage: total / limit },
+    meta: { page, limit, total: total, totalPage: Math.ceil(total / limit) },
     data: result,
   };
 };
