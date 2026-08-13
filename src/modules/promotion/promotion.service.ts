@@ -61,7 +61,13 @@ const getAllPromotions = async (query: Record<string, any>) => {
   const searchTerm = query.searchTerm || undefined;
   const promotions = await prisma.promotion.findMany({
     where: {
-      designation: category,
+      designation: category ? { equals: category } : undefined,
+      OR: searchTerm
+        ? [
+            { name: { contains: searchTerm, mode: "insensitive" } },
+            { designation: { contains: searchTerm, mode: "insensitive" } },
+          ]
+        : undefined,
     },
     skip: (page - 1) * limit,
     take: limit,
