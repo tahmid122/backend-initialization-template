@@ -160,7 +160,7 @@ const resendVerificationEmail = async (data: { email: string }) => {
       console.error("Error while sending mail:", err);
     }
   }
-  return { otp: otp, message: "Rent the verification email." };
+  return { otp: otp, message: "Verification email sent." };
 };
 
 const login = async (data: { email: string; password: string }) => {
