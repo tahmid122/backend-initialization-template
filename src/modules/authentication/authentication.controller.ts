@@ -3,13 +3,9 @@ import { authenticationService } from "./authentication.service";
 import { JWT_USER } from "../../middlewares/auth";
 
 const register = async (req: Request, res: Response) => {
-  await authenticationService.register(req.body);
+  const result = await authenticationService.register(req.body);
 
-  return res.status(201).send({
-    success: true,
-    message:
-      "User registration successful. Verification email sent to your email.",
-  });
+  return res.status(201).send(result);
 };
 
 const verifyAccount = async (req: Request, res: Response) => {

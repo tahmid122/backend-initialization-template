@@ -12,8 +12,15 @@ const register = async (data: Pick<User, "name" | "email" | "password">) => {
   const userAlready = await prisma.user.findFirst({
     where: { email: data.email },
   });
-  if (userAlready) {
+  if (userAlready && userAlready.isVerified) {
     throw new AppError("User already exist. Please login to continue");
+  }
+  if (userAlready && userAlready.isVerified === false) {
+    return {
+      success: true,
+      message: "Please verify your account. Check you email.",
+      data: userAlready,
+    };
   }
   const hashPassword = await bcrypt.hash(data.password, 10);
   const createdUser = await prisma.user.create({
@@ -68,7 +75,11 @@ const register = async (data: Pick<User, "name" | "email" | "password">) => {
       console.error("Error while sending mail:", err);
     }
   }
-  return createdUser;
+  return {
+    success: true,
+    message: "Registration successful. Verify your account.",
+    data: createdUser,
+  };
 };
 
 const verifyAccount = async (data: { otp: string; email: string }) => {
@@ -158,6 +169,14 @@ const login = async (data: { email: string; password: string }) => {
   });
   if (!user) {
     throw new AppError("Invalid credentials.", 400);
+  }
+  if (!user.isVerified) {
+    const { password, ...others } = user;
+    return {
+      success: true,
+      message: "Account not verified. Please verify.",
+      data: others,
+    };
   }
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
