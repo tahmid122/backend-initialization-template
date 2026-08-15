@@ -59,27 +59,29 @@ const register = async (data: Pick<User, "name" | "email" | "password">) => {
         purpose: "REGISTER",
       },
     });
+    if (config.SEND_EMAIL) {
+      try {
+        const info = await transporter.sendMail({
+          from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
+          to: createdUser.email,
+          subject: "Account verification code",
+          text: "Account verification code",
+          html: `<b>Verification code is ${otp}</b>`,
+        });
 
-    try {
-      const info = await transporter.sendMail({
-        from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
-        to: createdUser.email,
-        subject: "Account verification code",
-        text: "Account verification code",
-        html: `<b>Verification code is ${otp}</b>`,
-      });
-
-      console.log("Message sent: %s", info.messageId);
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    } catch (err) {
-      console.error("Error while sending mail:", err);
+        console.log("Message sent: %s", info.messageId);
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      } catch (err) {
+        console.error("Error while sending mail:", err);
+      }
     }
+    return {
+      success: true,
+      message: "Registration successful. Verify your account.",
+      otp: otp,
+      data: createdUser,
+    };
   }
-  return {
-    success: true,
-    message: "Registration successful. Verify your account.",
-    data: createdUser,
-  };
 };
 
 const verifyAccount = async (data: { otp: string; email: string }) => {
@@ -142,22 +144,23 @@ const resendVerificationEmail = async (data: { email: string }) => {
       purpose: "REGISTER",
     },
   });
+  if (config.SEND_EMAIL) {
+    try {
+      const info = await transporter.sendMail({
+        from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
+        to: data.email,
+        subject: "Account verification code",
+        text: "Account verification code",
+        html: `<b>Verification code is ${otp}</b>`,
+      });
 
-  try {
-    const info = await transporter.sendMail({
-      from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
-      to: data.email,
-      subject: "Account verification code",
-      text: "Account verification code",
-      html: `<b>Verification code is ${otp}</b>`,
-    });
-
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  } catch (err) {
-    console.error("Error while sending mail:", err);
+      console.log("Message sent: %s", info.messageId);
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    } catch (err) {
+      console.error("Error while sending mail:", err);
+    }
   }
-  return { message: "Rent the verification email." };
+  return { otp: otp, message: "Rent the verification email." };
 };
 
 const login = async (data: { email: string; password: string }) => {
@@ -211,22 +214,23 @@ const forgotPassword = async (data: { email: string }) => {
       purpose: "FORGOT_PASSWORD",
     },
   });
+  if (config.SEND_EMAIL) {
+    try {
+      const info = await transporter.sendMail({
+        from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
+        to: data.email,
+        subject: "Forgot password verification code",
+        text: "Forgot password verification code",
+        html: `<b>Forgot password verification code is ${otp}</b>`,
+      });
 
-  try {
-    const info = await transporter.sendMail({
-      from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
-      to: data.email,
-      subject: "Forgot password verification code",
-      text: "Forgot password verification code",
-      html: `<b>Forgot password verification code is ${otp}</b>`,
-    });
-
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  } catch (err) {
-    console.error("Error while sending mail:", err);
+      console.log("Message sent: %s", info.messageId);
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    } catch (err) {
+      console.error("Error while sending mail:", err);
+    }
   }
-  return { success: true, message: "Verification email sent" };
+  return { success: true, otp, message: "Verification email sent" };
 };
 
 const verifyForgotPassword = async (data: { otp: string; email: string }) => {

@@ -10,6 +10,7 @@ const config = {
   SMTP_USER: process.env.SMTP_USER,
   SMTP_PASS: process.env.SMTP_PASS,
   JWT_SECRET: process.env.JWT_SECRET,
+  SEND_EMAIL: process.env.SEND_EMAIL,
 };
 
 export default config;
