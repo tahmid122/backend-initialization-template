@@ -59,7 +59,7 @@ const register = async (data: Pick<User, "name" | "email" | "password">) => {
         purpose: "REGISTER",
       },
     });
-    if (config.SEND_EMAIL) {
+    if (Boolean(config.SEND_EMAIL)) {
       try {
         const info = await transporter.sendMail({
           from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
@@ -144,7 +144,7 @@ const resendVerificationEmail = async (data: { email: string }) => {
       purpose: "REGISTER",
     },
   });
-  if (config.SEND_EMAIL) {
+  if (Boolean(config.SEND_EMAIL)) {
     try {
       const info = await transporter.sendMail({
         from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
@@ -214,7 +214,7 @@ const forgotPassword = async (data: { email: string }) => {
       purpose: "FORGOT_PASSWORD",
     },
   });
-  if (config.SEND_EMAIL) {
+  if (Boolean(config.SEND_EMAIL)) {
     try {
       const info = await transporter.sendMail({
         from: '"Backend Initialization Team" <mdtahmidalam.work@gmail.com>',
