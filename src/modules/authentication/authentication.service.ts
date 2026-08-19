@@ -185,6 +185,9 @@ const login = async (data: { email: string; password: string }) => {
   if (!isMatch) {
     throw new AppError("Invalid credentials.", 400);
   }
+  if (user.status === "BANNED")
+    throw new AppError("Your account has been banned.", 400);
+
   const token = jwt.sign(
     { id: user.id, email: user.email, role: user.role },
     config.JWT_SECRET as string,
